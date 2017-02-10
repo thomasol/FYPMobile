@@ -48,8 +48,6 @@ namespace FinalYearProject.Mobile.Activities
         private LocationRequest locRequest;
         private const string TAG = "MainActivity";
 
-        private Task<Position> _pos;
-
         readonly string[] Permissions =
             {
                 Manifest.Permission.AccessCoarseLocation,
@@ -109,17 +107,17 @@ namespace FinalYearProject.Mobile.Activities
             {
                 ListItemClicked(0);
             }
-            if (_pos == null)
-            {
-                try
-                {
-                    _pos = LocationHelper.GetLocation();
-                }
-                catch (Exception ex)
-                {
-                    Log.Debug(TAG, ex.ToString());
-                }
-            }
+            //if (LocationHelper.Position == null)
+            //{
+            //    try
+            //    {
+            //        LocationHelper.GetLocation();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Log.Debug(TAG, ex.ToString());
+            //    }
+            //}
 
             _gsc = Intent.GetParcelableExtra("account") as GoogleSignInAccount;
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_below="@id/drawer_layout"
     android:padding="16dp"
-    android:layout_marginTop="50dp">
+    android:layout_marginTop="20dp">
     <TextView
         android:id="@+id/labelProductSearch"
         android:layout_width="fill_parent"
