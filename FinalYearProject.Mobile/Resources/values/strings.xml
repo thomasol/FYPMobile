@@ -5,7 +5,7 @@
   <string name="drawer_close">Close</string>
   <string name="menu_refresh">Refresh</string>
   <string name="fragment1">You are on Fragment 1</string>
-  <string name="fragment2">You are on Fragment 2</string>
+  <string name="barcodeScanFragment">Scan completed</string>
   <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">fyp</string>
     <string name="help">cunt</string>
@@ -64,4 +64,16 @@
   <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
          from https://console.developers.google.com/ -->
   <string name="server_client_id">YOUR_SERVER_CLIENT_ID</string>
+
+  <string name="planet_prompt">Choose a planet</string>
+  <string-array name="planets_array">
+    <item>Mercury</item>
+    <item>Venus</item>
+    <item>Earth</item>
+    <item>Mars</item>
+    <item>Jupiter</item>
+    <item>Saturn</item>
+    <item>Uranus</item>
+    <item>Neptune</item>
+  </string-array>
 </resources>

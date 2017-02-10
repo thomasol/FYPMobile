@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.Content.PM;
+using System.Threading.Tasks;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Plugin.Geolocator;
-using Plugin.Permissions;
+using FinalYearProject.Mobile.Helpers;
+using Plugin.Geolocator.Abstractions;
 using ZXing.Mobile;
 using ZXing.Net.Mobile.Forms.Android;
 using Fragment = Android.Support.V4.App.Fragment;
@@ -17,6 +13,7 @@ namespace FinalYearProject.Mobile.Fragments
     public class BarcodeScanFragment : Fragment
     {
         MobileBarcodeScanner _scanner;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -24,9 +21,6 @@ namespace FinalYearProject.Mobile.Fragments
             Platform.Init();
             _scanner = new MobileBarcodeScanner();
             Scanny();
-            GetLocation();
-
-            // Create your fragment here
         }
 
         public static BarcodeScanFragment NewInstance()
@@ -70,16 +64,5 @@ namespace FinalYearProject.Mobile.Fragments
             Activity.RunOnUiThread(() => Toast.MakeText(Context, msg, ToastLength.Long).Show());
         }
 
-        private async void GetLocation()
-        {
-            var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 50;
-
-            var position = await locator.GetPositionAsync(10000);
-
-            var x = position;
-        }
-
-       
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
@@ -22,8 +23,10 @@ using Android.Locations;
 using Android.Renderscripts;
 using Android.Util;
 using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
 using Fragment = Android.Support.V4.App.Fragment;
+using FinalYearProject.Mobile.Helpers;
 
 namespace FinalYearProject.Mobile.Activities
 {
@@ -62,7 +65,7 @@ namespace FinalYearProject.Mobile.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
+            
             _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
             //Set hamburger items menu
@@ -104,7 +107,18 @@ namespace FinalYearProject.Mobile.Activities
             {
                 ListItemClicked(0);
             }
-            
+            //if (LocationHelper.Position == null)
+            //{
+            //    try
+            //    {
+            //        LocationHelper.GetLocation();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        Log.Debug(TAG, ex.ToString());
+            //    }
+            //}
+
             _gsc = Intent.GetParcelableExtra("account") as GoogleSignInAccount;
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
                    .RequestEmail()

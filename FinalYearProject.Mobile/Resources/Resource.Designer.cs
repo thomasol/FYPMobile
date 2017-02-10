@@ -99,6 +99,9 @@ namespace FinalYearProject.Mobile
 		public partial class Array
 		{
 			
+			// aapt resource value: 0x7f0d0002
+			public const int planets_array = 2131558402;
+			
 			// aapt resource value: 0x7f0d0000
 			public const int sections = 2131558400;
 			
@@ -3472,97 +3475,94 @@ namespace FinalYearProject.Mobile
 			public const int design_navigation_menu_item = 2130903079;
 			
 			// aapt resource value: 0x7f030028
-			public const int fragment2 = 2130903080;
+			public const int Home = 2130903080;
 			
 			// aapt resource value: 0x7f030029
-			public const int Home = 2130903081;
+			public const int main = 2130903081;
 			
 			// aapt resource value: 0x7f03002a
-			public const int main = 2130903082;
+			public const int mr_chooser_dialog = 2130903082;
 			
 			// aapt resource value: 0x7f03002b
-			public const int mr_chooser_dialog = 2130903083;
+			public const int mr_chooser_list_item = 2130903083;
 			
 			// aapt resource value: 0x7f03002c
-			public const int mr_chooser_list_item = 2130903084;
+			public const int mr_controller_material_dialog_b = 2130903084;
 			
 			// aapt resource value: 0x7f03002d
-			public const int mr_controller_material_dialog_b = 2130903085;
+			public const int mr_controller_volume_item = 2130903085;
 			
 			// aapt resource value: 0x7f03002e
-			public const int mr_controller_volume_item = 2130903086;
+			public const int mr_playback_control = 2130903086;
 			
 			// aapt resource value: 0x7f03002f
-			public const int mr_playback_control = 2130903087;
+			public const int mr_volume_control = 2130903087;
 			
 			// aapt resource value: 0x7f030030
-			public const int mr_volume_control = 2130903088;
+			public const int nav_header = 2130903088;
 			
 			// aapt resource value: 0x7f030031
-			public const int nav_header = 2130903089;
+			public const int notification_media_action = 2130903089;
 			
 			// aapt resource value: 0x7f030032
-			public const int notification_media_action = 2130903090;
+			public const int notification_media_cancel_action = 2130903090;
 			
 			// aapt resource value: 0x7f030033
-			public const int notification_media_cancel_action = 2130903091;
+			public const int notification_template_big_media = 2130903091;
 			
 			// aapt resource value: 0x7f030034
-			public const int notification_template_big_media = 2130903092;
+			public const int notification_template_big_media_narrow = 2130903092;
 			
 			// aapt resource value: 0x7f030035
-			public const int notification_template_big_media_narrow = 2130903093;
+			public const int notification_template_lines = 2130903093;
 			
 			// aapt resource value: 0x7f030036
-			public const int notification_template_lines = 2130903094;
+			public const int notification_template_media = 2130903094;
 			
 			// aapt resource value: 0x7f030037
-			public const int notification_template_media = 2130903095;
+			public const int notification_template_part_chronometer = 2130903095;
 			
 			// aapt resource value: 0x7f030038
-			public const int notification_template_part_chronometer = 2130903096;
+			public const int notification_template_part_time = 2130903096;
 			
 			// aapt resource value: 0x7f030039
-			public const int notification_template_part_time = 2130903097;
+			public const int place_autocomplete_fragment = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int place_autocomplete_fragment = 2130903098;
+			public const int place_autocomplete_item_powered_by_google = 2130903098;
 			
 			// aapt resource value: 0x7f03003b
-			public const int place_autocomplete_item_powered_by_google = 2130903099;
+			public const int place_autocomplete_item_prediction = 2130903099;
 			
 			// aapt resource value: 0x7f03003c
-			public const int place_autocomplete_item_prediction = 2130903100;
+			public const int place_autocomplete_progress = 2130903100;
 			
 			// aapt resource value: 0x7f03003d
-			public const int place_autocomplete_progress = 2130903101;
+			public const int ProductListings = 2130903101;
 			
 			// aapt resource value: 0x7f03003e
-			public const int ProductListings = 2130903102;
+			public const int searchFragment = 2130903102;
 			
 			// aapt resource value: 0x7f03003f
-			public const int searchFragment = 2130903103;
+			public const int select_dialog_item_material = 2130903103;
 			
 			// aapt resource value: 0x7f030040
-			public const int select_dialog_item_material = 2130903104;
+			public const int select_dialog_multichoice_material = 2130903104;
 			
 			// aapt resource value: 0x7f030041
-			public const int select_dialog_multichoice_material = 2130903105;
+			public const int select_dialog_singlechoice_material = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int select_dialog_singlechoice_material = 2130903106;
+			public const int support_simple_spinner_dropdown_item = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int support_simple_spinner_dropdown_item = 2130903107;
+			public const int toolbar = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int toolbar = 2130903108;
+			public const int zxingscanneractivitylayout = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int zxingscanneractivitylayout = 2130903109;
-			
-			// aapt resource value: 0x7f030046
-			public const int zxingscannerfragmentlayout = 2130903110;
+			public const int zxingscannerfragmentlayout = 2130903109;
 			
 			static Layout()
 			{
@@ -3676,6 +3676,9 @@ namespace FinalYearProject.Mobile
 			
 			// aapt resource value: 0x7f080002
 			public const int auth_google_play_services_client_google_display_name = 2131230722;
+			
+			// aapt resource value: 0x7f08004d
+			public const int barcodeScanFragment = 2131230797;
 			
 			// aapt resource value: 0x7f080045
 			public const int bottom_sheet_behavior = 2131230789;
@@ -3809,9 +3812,6 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f08004c
 			public const int fragment1 = 2131230796;
 			
-			// aapt resource value: 0x7f08004d
-			public const int fragment2 = 2131230797;
-			
 			// aapt resource value: 0x7f080050
 			public const int help = 2131230800;
 			
@@ -3895,6 +3895,9 @@ namespace FinalYearProject.Mobile
 			
 			// aapt resource value: 0x7f080000
 			public const int place_autocomplete_search_hint = 2131230720;
+			
+			// aapt resource value: 0x7f08006f
+			public const int planet_prompt = 2131230831;
 			
 			// aapt resource value: 0x7f08005d
 			public const int play_services_error_fmt = 2131230813;
