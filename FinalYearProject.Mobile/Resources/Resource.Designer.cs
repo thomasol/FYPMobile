@@ -2643,6 +2643,18 @@ namespace FinalYearProject.Mobile
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f0a00cf
+			public const int Description = 2131361999;
+			
+			// aapt resource value: 0x7f0a00cc
+			public const int ListView = 2131361996;
+			
+			// aapt resource value: 0x7f0a00cd
+			public const int Thumbnail = 2131361997;
+			
+			// aapt resource value: 0x7f0a00ce
+			public const int Title = 2131361998;
+			
 			// aapt resource value: 0x7f0a007d
 			public const int accountAge = 2131361917;
 			
@@ -2703,8 +2715,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0047
 			public const int action_mode_close_button = 2131361863;
 			
-			// aapt resource value: 0x7f0a00cd
-			public const int action_share = 2131361997;
+			// aapt resource value: 0x7f0a00d1
+			public const int action_share = 2131362001;
 			
 			// aapt resource value: 0x7f0a0048
 			public const int activity_chooser_view_content = 2131361864;
@@ -2778,8 +2790,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a002a
 			public const int collapseActionView = 2131361834;
 			
-			// aapt resource value: 0x7f0a00cc
-			public const int contentFrame = 2131361996;
+			// aapt resource value: 0x7f0a00d0
+			public const int contentFrame = 2131362000;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int contentPanel = 2131361877;
@@ -3009,17 +3021,17 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0021
 			public const int multiply = 2131361825;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int navAccount = 2131362000;
+			// aapt resource value: 0x7f0a00d4
+			public const int navAccount = 2131362004;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int navBarcodeSearch = 2131361999;
+			// aapt resource value: 0x7f0a00d3
+			public const int navBarcodeSearch = 2131362003;
 			
-			// aapt resource value: 0x7f0a00ce
-			public const int navSearch = 2131361998;
+			// aapt resource value: 0x7f0a00d2
+			public const int navSearch = 2131362002;
 			
-			// aapt resource value: 0x7f0a00d1
-			public const int navSignOut = 2131362001;
+			// aapt resource value: 0x7f0a00d5
+			public const int navSignOut = 2131362005;
 			
 			// aapt resource value: 0x7f0a009c
 			public const int nav_view = 2131361948;
@@ -3553,16 +3565,22 @@ namespace FinalYearProject.Mobile
 			public const int select_dialog_singlechoice_material = 2130903105;
 			
 			// aapt resource value: 0x7f030042
-			public const int support_simple_spinner_dropdown_item = 2130903106;
+			public const int storeListFragment = 2130903106;
 			
 			// aapt resource value: 0x7f030043
-			public const int toolbar = 2130903107;
+			public const int storeListRow = 2130903107;
 			
 			// aapt resource value: 0x7f030044
-			public const int zxingscanneractivitylayout = 2130903108;
+			public const int support_simple_spinner_dropdown_item = 2130903108;
 			
 			// aapt resource value: 0x7f030045
-			public const int zxingscannerfragmentlayout = 2130903109;
+			public const int toolbar = 2130903109;
+			
+			// aapt resource value: 0x7f030046
+			public const int zxingscanneractivitylayout = 2130903110;
+			
+			// aapt resource value: 0x7f030047
+			public const int zxingscannerfragmentlayout = 2130903111;
 			
 			static Layout()
 			{
