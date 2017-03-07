@@ -2643,18 +2643,6 @@ namespace FinalYearProject.Mobile
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int Description = 2131361999;
-			
-			// aapt resource value: 0x7f0a00cc
-			public const int ListView = 2131361996;
-			
-			// aapt resource value: 0x7f0a00cd
-			public const int Thumbnail = 2131361997;
-			
-			// aapt resource value: 0x7f0a00ce
-			public const int Title = 2131361998;
-			
 			// aapt resource value: 0x7f0a007d
 			public const int accountAge = 2131361917;
 			
@@ -2715,8 +2703,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0047
 			public const int action_mode_close_button = 2131361863;
 			
-			// aapt resource value: 0x7f0a00d1
-			public const int action_share = 2131362001;
+			// aapt resource value: 0x7f0a00d0
+			public const int action_share = 2131362000;
 			
 			// aapt resource value: 0x7f0a0048
 			public const int activity_chooser_view_content = 2131361864;
@@ -2790,8 +2778,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a002a
 			public const int collapseActionView = 2131361834;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int contentFrame = 2131362000;
+			// aapt resource value: 0x7f0a00cf
+			public const int contentFrame = 2131361999;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int contentPanel = 2131361877;
@@ -3021,17 +3009,17 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0021
 			public const int multiply = 2131361825;
 			
-			// aapt resource value: 0x7f0a00d4
-			public const int navAccount = 2131362004;
-			
 			// aapt resource value: 0x7f0a00d3
-			public const int navBarcodeSearch = 2131362003;
+			public const int navAccount = 2131362003;
 			
 			// aapt resource value: 0x7f0a00d2
-			public const int navSearch = 2131362002;
+			public const int navBarcodeSearch = 2131362002;
 			
-			// aapt resource value: 0x7f0a00d5
-			public const int navSignOut = 2131362005;
+			// aapt resource value: 0x7f0a00d1
+			public const int navSearch = 2131362001;
+			
+			// aapt resource value: 0x7f0a00d4
+			public const int navSignOut = 2131362004;
 			
 			// aapt resource value: 0x7f0a009c
 			public const int nav_view = 2131361948;
@@ -3092,6 +3080,9 @@ namespace FinalYearProject.Mobile
 			
 			// aapt resource value: 0x7f0a005f
 			public const int radio = 2131361887;
+			
+			// aapt resource value: 0x7f0a00cc
+			public const int recyclerViewStoreList = 2131361996;
 			
 			// aapt resource value: 0x7f0a0097
 			public const int requestLabel = 2131361943;
@@ -3209,6 +3200,15 @@ namespace FinalYearProject.Mobile
 			
 			// aapt resource value: 0x7f0a00b9
 			public const int status_bar_latest_event_content = 2131361977;
+			
+			// aapt resource value: 0x7f0a00cd
+			public const int storeListRowTextView = 2131361997;
+			
+			// aapt resource value: 0x7f0a00ce
+			public const int storeListRowTextViewStoreType = 2131361998;
+			
+			// aapt resource value: 0x7f0a00d5
+			public const int storeListTest = 2131362005;
 			
 			// aapt resource value: 0x7f0a0070
 			public const int submit_area = 2131361904;

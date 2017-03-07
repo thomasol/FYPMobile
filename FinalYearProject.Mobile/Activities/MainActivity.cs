@@ -93,6 +93,9 @@ namespace FinalYearProject.Mobile.Activities
                     case Resource.Id.navSignOut:
                         ListItemClicked(3);
                         break;
+                    case Resource.Id.storeListTest:
+                        ListItemClicked(4);
+                        break;
                 }
 
                 Snackbar.Make(_drawerLayout, "You selected: " + e.MenuItem.TitleFormatted, Snackbar.LengthLong)
@@ -188,6 +191,9 @@ namespace FinalYearProject.Mobile.Activities
                         Finish();
                         return;
                     }
+                    break;
+                case 4:
+                    fragment = StoreListFragment.NewInstance();
                     break;
             }
 

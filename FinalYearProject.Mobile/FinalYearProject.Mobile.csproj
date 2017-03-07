@@ -196,9 +196,8 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\ProductListingsActivity.cs" />
     <Compile Include="Activities\SignInActivity.cs" />
-    <Compile Include="Adapters\ProductListingAdapter.cs" />
     <Compile Include="Adapters\ProductListingRecyclerViewAdapter.cs" />
-    <Compile Include="Adapters\StoreListAdapter.cs" />
+    <Compile Include="Adapters\StoreListRecyclerViewAdapter.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BarcodeScanFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />

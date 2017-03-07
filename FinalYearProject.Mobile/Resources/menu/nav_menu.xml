@@ -24,8 +24,9 @@
           android:icon="@drawable/ic_home_1"
           android:title="Sign Out" />
       <item
+          android:id="@+id/storeListTest"
           android:icon="@drawable/ic_home_2"
-          android:title="Sub item 2" />
+          android:title="Store List test2" />
     </menu>
   </item>
 

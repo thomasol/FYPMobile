@@ -55,9 +55,9 @@ namespace FinalYearProject.Domain
 
     public class Gps
     {
-        public int Longitude { get; set; }
-        public int Latitude { get; set; }
-        public int Distance { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double? Distance { get; set; }
     }
 
     public class Storeoption
