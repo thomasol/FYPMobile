@@ -22,7 +22,7 @@ namespace FinalYearProject.Mobile.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ProductListings);
 
-            string searchTerm = Intent.GetStringExtra("searchTerm") ?? "Data not available";
+            string searchTerm = Intent.GetStringExtra("product") ?? "Data not available";
             TextView t = FindViewById<TextView>(Resource.Id.textView1);
             t.Text = searchTerm;
             if (LocationHelper.Position == null)

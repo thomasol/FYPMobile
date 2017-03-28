@@ -41,7 +41,7 @@ namespace FinalYearProject.Api.Tests.Controllers
             test.CreatedAt = DateTime.Today;
             test.Description = "Test object";
 
-            test.Type = 0;
+            //test.Type = 0;
             // Act
             search.Add(test);
 

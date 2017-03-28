@@ -1,12 +1,16 @@
+using System;
 using System.Threading.Tasks;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FinalYearProject.Mobile.Helpers;
-using Plugin.Geolocator.Abstractions;
 using ZXing.Mobile;
 using ZXing.Net.Mobile.Forms.Android;
 using Fragment = Android.Support.V4.App.Fragment;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using Android.Content;
+using FinalYearProject.Mobile.Activities;
+using FinalYearProject.Mobile.Services;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -14,13 +18,17 @@ namespace FinalYearProject.Mobile.Fragments
     {
         MobileBarcodeScanner _scanner;
 
-        public override void OnCreate(Bundle savedInstanceState)
+        string content;
+        Intent _nextActivity;
+
+        public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            Activity.Title = "Barcode Scan";
             MobileBarcodeScanner.Initialize(Activity.Application);
             Platform.Init();
             _scanner = new MobileBarcodeScanner();
-            Scanny();
+            await Scanny();
         }
 
         public static BarcodeScanFragment NewInstance()
@@ -35,7 +43,7 @@ namespace FinalYearProject.Mobile.Fragments
             return inflater.Inflate(Resource.Layout.barcodeScanFragment, null);
         }
 
-        private async void Scanny()
+        private async Task Scanny()
         {
             _scanner.UseCustomOverlay = false;
 
@@ -45,24 +53,32 @@ namespace FinalYearProject.Mobile.Fragments
 
             //Start scanning
             var result = await _scanner.Scan();
-
-            HandleScanResult(result);
+            //_scanner.Cancel();
+            IRESTService restService = new RESTService();
+     
+            var productString = await restService.SearchByEAN(result.Text);
+            //var t = await HandleScanResult(result);
+            _nextActivity = new Intent(this.Activity, typeof(ProductListingsActivity));
+            _nextActivity.PutExtra("product", productString);
+            StartActivity(_nextActivity);
         }
 
-        void HandleScanResult(ZXing.Result result)
-        {
-            string msg = "";
+        //async Task<string> HandleScanResult(ZXing.Result result)
+        //{
+        //    string msg = "";
 
-            if (result != null && !string.IsNullOrEmpty(result.Text))
-                msg = "Found Barcode: " + result.Text;
-            //go search db
-            //if exists display results
-            //else inform not in db
-            else
-                msg = "Scanning Canceled!";
-
-            Activity.RunOnUiThread(() => Toast.MakeText(Context, msg, ToastLength.Long).Show());
-        }
-
+        //    if (result != null && !string.IsNullOrEmpty(result.Text))
+        //    {
+        //        msg = "Found Barcode: " + result.Text;
+        //        var x =  SearchByEAN(result.Text);
+        //        return await x;
+        //    }
+        //    else
+        //    {
+        //        return "-1";
+        //        msg = "Scanning Canceled!";
+        //    }
+        //    Activity.RunOnUiThread(() => Toast.MakeText(Context, msg, ToastLength.Long).Show());
+        //}
     }
 }

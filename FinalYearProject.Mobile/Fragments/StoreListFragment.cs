@@ -25,7 +25,7 @@ namespace FinalYearProject.Mobile.Fragments
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         StoreListRecyclerViewAdapter mAdapter;
-        List<Store> stores;
+        List<Product> stores;
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -45,8 +45,6 @@ namespace FinalYearProject.Mobile.Fragments
         private void OnItemClick(object sender, StoreListRecyclerViewAdapterClickEventArgs e)
         {
             var y = stores[e.Position];
-            var p = y.StoreOptions.Where(x => x.Name == "StoreType" && x.Value == "Online");
-           
             
         }
 
@@ -66,7 +64,7 @@ namespace FinalYearProject.Mobile.Fragments
             return v;
         }
 
-        private async Task<List<Store>> DownloadDataAsync()
+        private async Task<List<Product>> DownloadDataAsync()
         {
             //_searchTerm = _searchTermTextView.Text;
             string url = "https://locations.where-to-buy.co/api/local/all?SamsungExperienceStore=0&distance=50000&latitude=52.37403&locale=nl-NL&longitude=4.88969&model=SM-G928FZDAPHN&orderBy=category&token=Z58QH8nvuxDQlHRDCC7M4QmLtbc3MvmvCturJOT1m3TALfCTlOH47dz96oelTUOD5sV%2FHtIGfy%2BM6xrHsNvwEa92mdJ85Ak7VBowdYajinI%3D&top=50";
@@ -76,12 +74,12 @@ namespace FinalYearProject.Mobile.Fragments
             string content = await downloadTask;
             Console.Out.WriteLine("Response: \r\n {0}", content);
 
-            var store = new List<Store>();
+            var store = new List<Product>();
             JObject jsonResponse = JObject.Parse(content);
             IList<JToken> results = jsonResponse["Stores"].ToList();
             foreach (JToken token in results)
             {
-                Store poi = JsonConvert.DeserializeObject<Store>(token.ToString());
+                Product poi = JsonConvert.DeserializeObject<Product>(token.ToString());
                 store.Add(poi);
             }
             return store;

@@ -8,10 +8,10 @@ namespace FinalYearProject.Domain
 {
     public class Event
     {
+        public int EventId { get; set; }
         public string Description { get; set; }
-        public int Type { get; set; }
+        public enum Type { Search, Impression, Click, Hit }
         public DateTime CreatedAt { get; set; }
-
-
+        public int UserId { get; set; }
     }
 }

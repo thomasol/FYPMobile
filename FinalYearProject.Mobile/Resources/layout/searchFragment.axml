@@ -5,7 +5,7 @@
     android:layout_below="@id/drawer_layout"
     android:padding="16dp"
     android:layout_marginTop="20dp">
-    <TextView
+    <!--<TextView
         android:id="@+id/labelProductSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -25,5 +25,10 @@
         android:layout_marginLeft="10dip"
         android:clickable="true"
         android:focusable="false"
-        android:focusableInTouchMode="false" />
+        android:focusableInTouchMode="false" />-->
+  <Button
+        android:text="Barcode Scanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonBarcodeScanner" />
 </RelativeLayout>

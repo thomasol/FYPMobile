@@ -70,6 +70,7 @@
       <HintPath>..\packages\Google.Apis.Core.1.20.0\lib\netstandard1.3\Google.Apis.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -99,7 +100,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -207,6 +210,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Helpers\LocationHelper.cs" />
+    <Compile Include="Services\IRESTService.cs" />
+    <Compile Include="Services\RESTService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -246,7 +251,9 @@
     </Content>
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\values\integers.xml" />
-    <AndroidResource Include="Resources\values\strings.xml" />
+    <AndroidResource Include="Resources\values\strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -292,9 +299,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FinalYearProject.Domain\FinalYearProject.Domain.csproj">
       <Project>{0d829776-7fdd-4771-88ec-ed8fed22162d}</Project>

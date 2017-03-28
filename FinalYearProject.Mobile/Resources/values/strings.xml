@@ -8,8 +8,7 @@
   <string name="barcodeScanFragment">Scan completed</string>
   <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">fyp</string>
-    <string name="help">cunt</string>
-    <string name="new_game">cunt</string>
+    <string name="help">help</string>
     <string name="app_name">Google Sign-In</string>
     <string name="title_text">Please sign in using\nyour Gmail</string>
     <string name="action_settings">Settings</string>

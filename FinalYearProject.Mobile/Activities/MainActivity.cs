@@ -47,6 +47,7 @@ namespace FinalYearProject.Mobile.Activities
         private Location _mLastLocation;
         private LocationRequest locRequest;
         private const string TAG = "MainActivity";
+        int _oldPosition = -1;
 
         readonly string[] Permissions =
             {
@@ -81,9 +82,9 @@ namespace FinalYearProject.Mobile.Activities
 
                 switch (e.MenuItem.ItemId)
                 {
-                    case Resource.Id.navSearch:
-                        ListItemClicked(0);
-                        break;
+                    //case Resource.Id.navSearch:
+                    //    ListItemClicked(0);
+                    //    break;
                     case Resource.Id.navBarcodeSearch:
                         ListItemClicked(1);
                         break;
@@ -151,13 +152,12 @@ namespace FinalYearProject.Mobile.Activities
 
             _actionProvider.SetShareIntent(intent);
 
-            _mUsernameTextView = (TextView)FindViewById(Resource.Id.usernameHeader);
-            _mUsernameTextView.Text = _gsc.DisplayName + " Signed in.";
+            //_mUsernameTextView = (TextView)FindViewById(Resource.Id.usernameHeader);
+            //_mUsernameTextView.Text = _gsc.DisplayName + " Signed in.";
 
             return base.OnCreateOptionsMenu(menu);
         }
 
-        int _oldPosition = -1;
         private async void ListItemClicked(int position)
         {
             //this way we don't load twice, but you might want to modify this a bit.
@@ -217,7 +217,10 @@ namespace FinalYearProject.Mobile.Activities
         {
             Log.Debug(TAG, "Main Activity Connection Error");
         }
-        
+
+        public override void OnBackPressed()
+        {
+            Finish();
+        }
     }
 }
-

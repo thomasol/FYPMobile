@@ -139,6 +139,10 @@ namespace FinalYearProject.Mobile.Activities
         {
             if (signedIn)
             {
+                //if(CheckNewUser(_acct.Id))
+                //{
+
+                //}
                 FindViewById(Resource.Id.sign_in_button).Visibility = ViewStates.Gone;
                 FindViewById(Resource.Id.sign_out_and_disconnect).Visibility = ViewStates.Visible;
 
@@ -180,7 +184,6 @@ namespace FinalYearProject.Mobile.Activities
                 HandleSignInResult(result);
             }
         }
-
 
         // [START signOut]
         static async void SignOut()

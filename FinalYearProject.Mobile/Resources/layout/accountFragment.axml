@@ -17,7 +17,7 @@
             android:layout_height="120dp"
             android:layout_below="@+id/header_cover_image"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="-60dp"
+            android:layout_marginTop="-45dp"
             android:background="@drawable/AccountCircularBorderImage"
             android:elevation="5dp"
             android:padding="20dp"
@@ -31,22 +31,6 @@
             android:background="#ebca0707"
             android:elevation="4dp"
             android:paddingBottom="24dp">
-            <ImageView
-                android:id="@+id/add_friend"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_toLeftOf="@+id/drop_down_option_menu"
-                android:src="@drawable/ic_action_user_add" />
-            <ImageView
-                android:id="@+id/drop_down_option_menu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:src="@drawable/ic_action_overflow" />
             <TextView
                 android:id="@+id/accountName"
                 android:layout_width="wrap_content"
@@ -57,16 +41,6 @@
                 android:textColor="#fff"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-            <TextView
-                android:id="@+id/accountBio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/accountName"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:text="Profile info"
-                android:textColor="#fff"
-                android:textSize="14sp" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="fill_parent"

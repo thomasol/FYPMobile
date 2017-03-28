@@ -42,9 +42,9 @@ namespace FinalYearProject.Mobile.Fragments
         {
             //var ignored = base.OnCreateView(inflater, container, savedInstanceState);
             View v = inflater.Inflate(Resource.Layout.searchFragment, container, false);
-            _searchButton = v.FindViewById<Button>(Resource.Id.buttonSearch);
-            _searchTermTextView = v.FindViewById<AutoCompleteTextView>(Resource.Id.autoCompleteTextViewSearch);
-            _searchButton.Click += FetchLocationDataAsync;
+            //_searchButton = v.FindViewById<Button>(Resource.Id.buttonSearch);
+            //_searchTermTextView = v.FindViewById<AutoCompleteTextView>(Resource.Id.autoCompleteTextViewSearch);
+            //_searchButton.Click += FetchLocationDataAsync;
 
             return v;
         }
@@ -91,12 +91,12 @@ namespace FinalYearProject.Mobile.Fragments
             string content = await downloadTask;
             Console.Out.WriteLine("Response: \r\n {0}", content);
 
-            var store = new List<Store>();
+            var store = new List<Product>();
             JObject jsonResponse = JObject.Parse(content);
             IList<JToken> results = jsonResponse["Stores"].ToList();
             foreach (JToken token in results)
             {
-                Store poi = JsonConvert.DeserializeObject<Store>(token.ToString());
+                Product poi = JsonConvert.DeserializeObject<Product>(token.ToString());
                 store.Add(poi);
             }
             var y = store;

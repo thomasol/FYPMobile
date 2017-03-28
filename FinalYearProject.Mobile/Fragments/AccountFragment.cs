@@ -19,6 +19,7 @@ namespace FinalYearProject.Mobile.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            Activity.Title = "Account";
             Bundle bundle = Arguments;
             if (bundle != null)
             {

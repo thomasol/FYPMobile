@@ -60,14 +60,14 @@ namespace FinalYearProject.Mobile.Activities
             layout = FindViewById(Resource.Layout.Home);
             //StartService(new Intent(this, typeof(Services.LocationService)));
 
-            _autoTexView = (AutoCompleteTextView)FindViewById(Resource.Id.autoCompleteTextViewSearch);
+            //_autoTexView = (AutoCompleteTextView)FindViewById(Resource.Id.autoCompleteTextViewSearch);
 
-            Button clearButton = (Button)FindViewById(Resource.Id.buttonClear);
+            //Button clearButton = (Button)FindViewById(Resource.Id.buttonClear);
 
-            clearButton.Click += (object sender, EventArgs e) =>
-            {
-                _autoTexView.Text = "";
-            };
+            //clearButton.Click += (object sender, EventArgs e) =>
+            //{
+            //    _autoTexView.Text = "";
+            //};
 
             //_barcodeScannerButton = (Button)FindViewById(Resource.Id.buttonBarcodeScanner);
             //_barcodeScannerButton.Click += async (sender, ea) =>
@@ -114,14 +114,14 @@ namespace FinalYearProject.Mobile.Activities
             //};
             
 
-            _searchButton = (Button)FindViewById(Resource.Id.buttonSearch);
-            _searchButton.Click += (sender, e) =>
-            {
+            //_searchButton = (Button)FindViewById(Resource.Id.buttonSearch);
+            //_searchButton.Click += (sender, e) =>
+            //{
 
-                _nextActivity = new Intent(this, typeof(ProductListingsActivity));
-                _nextActivity.PutExtra("location", pos.Latitude.ToString());
-                StartActivity(_nextActivity);
-            };
+            //    _nextActivity = new Intent(this, typeof(ProductListingsActivity));
+            //    _nextActivity.PutExtra("location", pos.Latitude.ToString());
+            //    StartActivity(_nextActivity);
+            //};
         }
         //void HandleScanResult(ZXing.Result result)
         //{

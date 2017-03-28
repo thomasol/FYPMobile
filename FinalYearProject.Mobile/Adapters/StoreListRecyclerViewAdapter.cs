@@ -12,9 +12,9 @@ namespace FinalYearProject.Mobile.Adapters
     {
         public event EventHandler<StoreListRecyclerViewAdapterClickEventArgs> ItemClick;
         public event EventHandler<StoreListRecyclerViewAdapterClickEventArgs> ItemLongClick;
-        List<Store> _stores;
+        List<Product> _stores;
 
-        public StoreListRecyclerViewAdapter(List<Store> stores)
+        public StoreListRecyclerViewAdapter(List<Product> stores)
         {
             _stores = stores;
         }
@@ -39,8 +39,8 @@ namespace FinalYearProject.Mobile.Adapters
 
             // Replace the contents of the view with that element
             var holder = viewHolder as StoreListRecyclerViewAdapterViewHolder;
-            holder.Description.Text = item.Name.ToString();
-            holder.StoreType.Text = item.StoreLocationOptions.Find(x => x.Name == "StoreType").Value.ToString();
+           //holder.Description.Text = item..Name.ToString();
+            //holder.StoreType.Text = item.StoreLocationOptions.Find(x => x.Name == "StoreType").Value.ToString();
             //var p = y.StoreOptions.Where(x => x.Name == "StoreType" && x.Value == "Online");
         }
 

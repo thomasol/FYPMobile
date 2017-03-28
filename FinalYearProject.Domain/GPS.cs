@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace FinalYearProject.Domain
 {
-    public class SearchOject
+    public class Gps
     {
-        public string UserName { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double? Distance { get; set; }
     }
 }
