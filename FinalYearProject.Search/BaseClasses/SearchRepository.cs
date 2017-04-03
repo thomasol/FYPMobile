@@ -94,6 +94,13 @@ namespace FinalYearProject.Search.BaseClasses
             return response;
         }
 
+        public virtual ISearchResponse<T> GetById(string id)
+        {
+            ISearchResponse<T> response =
+                ElasticClient.Search<T>(s => s.Index(Index).Type(Type).Query(query => query.Term("id", id)));
+            return response;
+        }
+
         public virtual ISearchResponse<T> GetUpdated(int page, int size)
         {
             var response =

@@ -50,5 +50,6 @@ namespace FinalYearProject.Mobile.Fragments
             return v;
             //return inflater.Inflate(Resource.Layout.accountFragment, null);
         }
+        
     }
 }

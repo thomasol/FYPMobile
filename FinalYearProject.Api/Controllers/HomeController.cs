@@ -10,7 +10,7 @@ namespace FinalYearProject.Api.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
+            ViewBag.Title = "FYP Dashboard";
 
             return View();
         }

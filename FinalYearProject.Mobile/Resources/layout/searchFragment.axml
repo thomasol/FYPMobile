@@ -30,5 +30,6 @@
         android:text="Barcode Scanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonBarcodeScanner" />
+        android:id="@+id/buttonBarcodeScanner"
+        android:onClick="scanner_OnClick"/>
 </RelativeLayout>

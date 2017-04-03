@@ -33,6 +33,10 @@ namespace FinalYearProject.Mobile.Activities
     [Activity(Label = "Home", LaunchMode = LaunchMode.SingleTop, Icon = "@drawable/Icon")]
     public class MainActivity : BaseActivity, GoogleApiClient.IOnConnectionFailedListener
     {
+        private bool exit = false;
+
+        Fragment fragment = null;
+
         GoogleSignInAccount _gsc;
 
         DrawerLayout _drawerLayout;
@@ -166,7 +170,6 @@ namespace FinalYearProject.Mobile.Activities
 
             _oldPosition = position;
 
-            Fragment fragment = null;
             switch (position)
             {
                 case 0:
@@ -197,8 +200,9 @@ namespace FinalYearProject.Mobile.Activities
                     break;
             }
 
-            SupportFragmentManager.BeginTransaction()
+                SupportFragmentManager.BeginTransaction()
                 .Replace(Resource.Id.content_frame, fragment)
+                .AddToBackStack(null)
                 .Commit();
         }
 
@@ -220,7 +224,10 @@ namespace FinalYearProject.Mobile.Activities
 
         public override void OnBackPressed()
         {
-            Finish();
+            Intent intent = new Intent(Intent.ActionMain);
+            intent.AddCategory(Intent.CategoryHome);
+            intent.SetFlags(ActivityFlags.NewTask);
+            StartActivity(intent);
         }
     }
 }

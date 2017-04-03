@@ -14,7 +14,9 @@ namespace FinalYearProject.Api.Controllers
         // GET api/values/5
         public Product Put( FypSearchRequest req)
         {
-            var onlinesearch = new Search.ProductSearchRepository("product", "dev-fyp");
+            req.Page = 0;
+            req.Size = 1;
+            var onlinesearch = new Search.ProductSearchRepository("product", "fyp");
             //var id = Convert.ToInt32(req.ProductId);
             var product = onlinesearch.SearchLocations(req);
             

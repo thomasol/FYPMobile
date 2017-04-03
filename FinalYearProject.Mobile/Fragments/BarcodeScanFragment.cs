@@ -11,24 +11,28 @@ using Newtonsoft.Json.Linq;
 using Android.Content;
 using FinalYearProject.Mobile.Activities;
 using FinalYearProject.Mobile.Services;
+using Android.Util;
 
 namespace FinalYearProject.Mobile.Fragments
 {
     public class BarcodeScanFragment : Fragment
     {
         MobileBarcodeScanner _scanner;
-
-        string content;
         Intent _nextActivity;
 
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Activity.Title = "Barcode Scan";
-            MobileBarcodeScanner.Initialize(Activity.Application);
-            Platform.Init();
-            _scanner = new MobileBarcodeScanner();
-            await Scanny();
+            try
+            {
+                await Scanny();
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("Scanning Error", ex.ToString());
+            }
+
         }
 
         public static BarcodeScanFragment NewInstance()
@@ -45,6 +49,10 @@ namespace FinalYearProject.Mobile.Fragments
 
         private async Task Scanny()
         {
+            MobileBarcodeScanner.Initialize(Activity.Application);
+            Platform.Init();
+            _scanner = new MobileBarcodeScanner();
+
             _scanner.UseCustomOverlay = false;
 
             //We can customize the top and bottom text of the default overlay
@@ -60,6 +68,7 @@ namespace FinalYearProject.Mobile.Fragments
             //var t = await HandleScanResult(result);
             _nextActivity = new Intent(this.Activity, typeof(ProductListingsActivity));
             _nextActivity.PutExtra("product", productString);
+            _nextActivity.PutExtra("ean", result.Text);
             StartActivity(_nextActivity);
         }
 

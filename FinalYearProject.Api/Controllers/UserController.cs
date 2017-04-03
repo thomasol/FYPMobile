@@ -11,15 +11,22 @@ namespace FinalYearProject.Api.Controllers
 {
     public class UserController : ApiController
     {
-        public bool CheckNewUser(int googleId)
+        public User Get(string id)
         {
-            var search = new SearchRepository<User>("user", "user");
-            var result = search.GetById(googleId);
-            if (result.Total > 0)
-            {
-                return false;
-            }
-            return true;
+            var search = new SearchRepository<User>("user", "fyp");
+            var result = search.GetById(id);
+
+            return result.Documents.FirstOrDefault();
+        }
+
+        public void Post([FromBody]User user)
+        {
+            // Arrange
+            var search = new SearchRepository<User>("user", "fyp");
+            search.AddMappings(user);
+
+            // Act
+            search.Add(user);
         }
         
     }

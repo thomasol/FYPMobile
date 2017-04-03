@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using FinalYearProject.Domain;
 using Newtonsoft.Json;
+using ZXing.Net.Mobile.Forms;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -37,6 +38,14 @@ namespace FinalYearProject.Mobile.Fragments
             var frag1 = new SearchFragment { Arguments = new Bundle() };
             return frag1;
         }
+
+        //[Java.Interop.Export("scanner_OnClick")]
+        //public async void button_OnClick(View v)
+        //{
+        //    var scanPage = new ZXingScannerPage();
+        //    // Navigate to our scanner page
+        //    //await Navigation.PushAsync(scanPage);
+        //}
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

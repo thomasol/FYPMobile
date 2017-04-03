@@ -11,6 +11,8 @@ namespace FinalYearProject.Search.BaseClasses
 
         ISearchResponse<T> GetById(int id);
 
+        ISearchResponse<T> GetById(string id);
+
         ISearchResponse<T> GetUpdated(int page, int size);
 
         ISearchResponse<T> GetCreated(int page, int size);
