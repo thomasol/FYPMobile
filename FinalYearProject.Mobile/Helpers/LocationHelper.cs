@@ -18,10 +18,9 @@ namespace FinalYearProject.Mobile.Helpers
         public static async Task GetLocation()
         {
             var locator = CrossGeolocator.Current;
-            locator.DesiredAccuracy = 500;
+            locator.DesiredAccuracy = 750;
 
-            _position = await locator.GetPositionAsync(10000);
-
+            _position = await locator.GetPositionAsync(7500);
         }
     }
 }

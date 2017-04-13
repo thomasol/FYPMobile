@@ -11,13 +11,14 @@ using Android.Views;
 using Android.Widget;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Android.Gms.Auth.Api.SignIn;
 
 namespace FinalYearProject.Mobile.Services
 {
-    public interface IRESTService
+    public interface IAPIService
     {
         Task<string> SearchByEAN(string ean);
-        Task<bool> UserExists(string id);
         Task<bool> SaveEvent(JObject ev);
+        Task<string> CheckUser(GoogleSignInAccount _acct);
     }
 }

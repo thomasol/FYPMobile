@@ -18,25 +18,20 @@ using Android.Widget;
 using FinalYearProject.Mobile.Fragments;
 using Android.Gms.Common.Apis;
 using Android.Gms.Auth.Api;
-using Android.Gms.Location;
-using Android.Locations;
-using Android.Renderscripts;
 using Android.Util;
-using Plugin.Geolocator;
-using Plugin.Geolocator.Abstractions;
-using Plugin.Permissions;
 using Fragment = Android.Support.V4.App.Fragment;
 using FinalYearProject.Mobile.Helpers;
+using FinalYearProject.Mobile.Services;
+using FinalYearProject.Mobile.Adapters;
 
 namespace FinalYearProject.Mobile.Activities
 {
     [Activity(Label = "Home", LaunchMode = LaunchMode.SingleTop, Icon = "@drawable/Icon")]
     public class MainActivity : BaseActivity, GoogleApiClient.IOnConnectionFailedListener
     {
-        private bool exit = false;
-
         Fragment fragment = null;
-
+        Intent _nextActivity;
+        string _productString;
         GoogleSignInAccount _gsc;
 
         DrawerLayout _drawerLayout;
@@ -44,12 +39,7 @@ namespace FinalYearProject.Mobile.Activities
 
         private TextView _mUsernameTextView;
         GoogleApiClient _mGoogleApiClient;
-
-        private TextView _mLatitudeText;
-        private TextView _mLongitudeText;
-
-        private Location _mLastLocation;
-        private LocationRequest locRequest;
+        
         private const string TAG = "MainActivity";
         int _oldPosition = -1;
 
@@ -70,15 +60,12 @@ namespace FinalYearProject.Mobile.Activities
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
-            _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
+            _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             //Set hamburger items menu
             SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-
             //setup navigation view
             _navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-
             //handle navigation
             _navigationView.NavigationItemSelected += (sender, e) =>
             {
@@ -102,30 +89,16 @@ namespace FinalYearProject.Mobile.Activities
                         ListItemClicked(4);
                         break;
                 }
-
-                Snackbar.Make(_drawerLayout, "You selected: " + e.MenuItem.TitleFormatted, Snackbar.LengthLong)
-                    .Show();
-
+                //Snackbar.Make(_drawerLayout, "You selected: " + e.MenuItem.TitleFormatted, Snackbar.LengthLong)
+                //    .Show();
                 _drawerLayout.CloseDrawers();
             };
-
 
             //if first time you will want to go ahead and click first item.
             if (savedInstanceState == null)
             {
                 ListItemClicked(0);
             }
-            //if (LocationHelper.Position == null)
-            //{
-            //    try
-            //    {
-            //        LocationHelper.GetLocation();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        Log.Debug(TAG, ex.ToString());
-            //    }
-            //}
 
             _gsc = Intent.GetParcelableExtra("account") as GoogleSignInAccount;
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
@@ -133,16 +106,30 @@ namespace FinalYearProject.Mobile.Activities
                    .Build();
 
             _mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .EnableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                    .EnableAutoManage(this, this)
                     .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
                     .Build();
+        }
+
+        private async void GetLocation()
+        {
+            if (LocationHelper.Position == null)
+            {
+                try
+                {
+                    await LocationHelper.GetLocation();
+                }
+                catch (Exception ex)
+                {
+                    Log.Debug(TAG, ex.ToString());
+                }
+            }
         }
 
         Android.Support.V7.Widget.ShareActionProvider _actionProvider;
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            //change menu_share1 to your name
             this.MenuInflater.Inflate(Resource.Menu.menu_share1, menu);
 
             var shareItem = menu.FindItem(Resource.Id.action_share);
@@ -150,14 +137,8 @@ namespace FinalYearProject.Mobile.Activities
 
             _actionProvider = provider.JavaCast<Android.Support.V7.Widget.ShareActionProvider>();
 
-            var intent = new Intent(Intent.ActionSend);
-            intent.SetType("text/plain");
-            intent.PutExtra(Intent.ExtraText, "Time to share some text!");
-
-            _actionProvider.SetShareIntent(intent);
-
-            //_mUsernameTextView = (TextView)FindViewById(Resource.Id.usernameHeader);
-            //_mUsernameTextView.Text = _gsc.DisplayName + " Signed in.";
+            _mUsernameTextView = (TextView)FindViewById(Resource.Id.usernameHeader);
+            _mUsernameTextView.Text = _gsc.DisplayName + " signed in.";
 
             return base.OnCreateOptionsMenu(menu);
         }
@@ -224,10 +205,39 @@ namespace FinalYearProject.Mobile.Activities
 
         public override void OnBackPressed()
         {
-            Intent intent = new Intent(Intent.ActionMain);
-            intent.AddCategory(Intent.CategoryHome);
-            intent.SetFlags(ActivityFlags.NewTask);
-            StartActivity(intent);
+            if (SupportFragmentManager.BackStackEntryCount > 0)
+            {
+                SupportFragmentManager.PopBackStack();
+            }
+            else
+            {
+                base.OnBackPressed();
+                Finish();
+            }
+            //Intent intent = new Intent(Intent.ActionMain);
+            //intent.AddCategory(Intent.CategoryHome);
+            //intent.SetFlags(ActivityFlags.NewTask);
+            //StartActivity(intent);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            GetLocation();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
+        public void SetProduct(string productString)
+        {
+            _productString = productString;
+        }
+        public string GetProduct()
+        {
+            return _productString;
         }
     }
 }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.Support.V4.App;
 using Android.Content;
 using Android.OS;
@@ -17,35 +16,49 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Android.Support.V7.Widget;
 using FinalYearProject.Mobile.Adapters;
+using FinalYearProject.Mobile.Activities;
+using Android.Graphics.Drawables;
+using Android.Content.Res;
+using Android.Support.Design.Widget;
+using Android.Support.V4.View;
 
 namespace FinalYearProject.Mobile.Fragments
 {
-    public class StoreListFragment : Fragment
+    public class StoreListFragment : Android.Support.V4.App.Fragment
     {
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         StoreListRecyclerViewAdapter mAdapter;
-        List<Product> stores;
-        public override async void OnCreate(Bundle savedInstanceState)
+        Product p;
+
+        public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            var _nextActivity = new Intent(this.Activity, typeof(ProductListingsActivity));
+            StartActivity(_nextActivity);
+            Activity.Title = "Scan Results";
 
-            stores = await DownloadDataAsync();
+            //try
+            //{
+            //    var myActivity = (MainActivity)this.Activity;
 
-            mLayoutManager = new LinearLayoutManager(this.Activity);
-            mRecyclerView.SetLayoutManager(mLayoutManager);
+            //    var productString = myActivity.GetProduct();
 
-            // Plug the adapter into the RecyclerView:
-            mAdapter = new StoreListRecyclerViewAdapter(stores);
-            mAdapter.ItemClick += OnItemClick;
-            mRecyclerView.SetAdapter(mAdapter);
+            //    JObject jsonResponse = JObject.Parse(productString);
+            //    p = jsonResponse.ToObject<Product>();
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.Debug("StoreList initialisation Fail", ex.ToString());
+            //}
+
             // Create your fragment here
         }
 
+        
         private void OnItemClick(object sender, StoreListRecyclerViewAdapterClickEventArgs e)
         {
-            var y = stores[e.Position];
-            
+            var y = e.Position;
         }
 
         public static StoreListFragment NewInstance()
@@ -59,8 +72,17 @@ namespace FinalYearProject.Mobile.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             View v = inflater.Inflate(Resource.Layout.storeListFragment, container, false);
-            mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewStoreList);
+            //mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewStoreList);
 
+            //mLayoutManager = new LinearLayoutManager(this.Activity);
+            //mRecyclerView.SetLayoutManager(mLayoutManager);
+
+            //mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
+            //// Plug the adapter into the RecyclerView:
+            //mAdapter = new StoreListRecyclerViewAdapter(p);
+            //mAdapter.ItemClick += OnItemClick;
+
+            //mRecyclerView.SetAdapter(mAdapter);
             return v;
         }
 
@@ -83,6 +105,39 @@ namespace FinalYearProject.Mobile.Fragments
                 store.Add(poi);
             }
             return store;
+        }
+    }
+    public class SimpleItemDecoration : RecyclerView.ItemDecoration
+    {
+        private Drawable divider;
+        private int[] attributes = new int[] { Android.Resource.Attribute.ListDivider };
+
+        public SimpleItemDecoration(Context context)
+        {
+            TypedArray ta = context.ObtainStyledAttributes(attributes);
+            divider = ta.GetDrawable(0);
+            ta.Recycle();
+        }
+
+        public override void OnDraw(Android.Graphics.Canvas c, RecyclerView parent, RecyclerView.State state)
+        {
+            base.OnDraw(c, parent, state);
+
+            int left = parent.PaddingLeft;
+            int right = parent.Width - parent.PaddingRight;
+
+            for (int i = 0; i < parent.ChildCount; i++)
+            {
+                View child = parent.GetChildAt(i);
+
+                var parameters = child.LayoutParameters.JavaCast<RecyclerView.LayoutParams>();
+
+                int top = child.Bottom + parameters.BottomMargin;
+                int bottom = top + divider.IntrinsicHeight;
+
+                divider.SetBounds(left, top, right, bottom);
+                divider.Draw(c);
+            }
         }
     }
 }

@@ -10,10 +10,6 @@
         android:id="@+id/navAccount"
         android:icon="@drawable/ic_home_1"
         android:title="Account" />
-  </group>
-
-  <item android:title="Sub items">
-    <menu>
       <item
           android:id="@+id/navSignOut"
           android:icon="@drawable/ic_home_1"
@@ -22,7 +18,5 @@
           android:id="@+id/storeListTest"
           android:icon="@drawable/ic_home_2"
           android:title="Store List test2" />
-    </menu>
-  </item>
-
+  </group>
 </menu>

@@ -13,5 +13,6 @@ namespace FinalYearProject.Domain
         public enum Type { Search, Impression, Click, Hit }
         public DateTime CreatedAt { get; set; }
         public int UserId { get; set; }
+        public Guid GUID { get; set; }
     }
 }

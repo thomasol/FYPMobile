@@ -29,7 +29,6 @@ namespace FinalYearProject.Mobile.Activities
                 SetSupportActionBar(Toolbar);
                 SupportActionBar.SetDisplayHomeAsUpEnabled(true);
                 SupportActionBar.SetHomeButtonEnabled(true);
-
             }
         }
 
@@ -43,7 +42,5 @@ namespace FinalYearProject.Mobile.Activities
             set { Toolbar.SetNavigationIcon(value); }
         }
     }
-
-
 }
 

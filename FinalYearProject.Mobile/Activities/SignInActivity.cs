@@ -14,8 +14,6 @@ using Android.Gms.Common;
 using Android.Gms.Auth.Api;
 using Android.Support.V7.App;
 using Android.Util;
-using Newtonsoft.Json;
-using Android.Accounts;
 using Android.Gms.Location;
 using FinalYearProject.Mobile.Services;
 
@@ -98,8 +96,8 @@ namespace FinalYearProject.Mobile.Activities
                 // Signed in successfully, show authenticated UI.
                 _acct = result.SignInAccount;
                 //var id = _acct.Email;
-                //IRESTService serv = new RESTService();
-                //var ans = await serv.UserExists(id);
+                //IAPIService serv = new APIService();
+                //var ans = await serv.CheckUser(_acct);
                 _mStatusTextView.Text = Resource.String.signed_n_fmt + _acct.DisplayName;
                 UpdateUI(true);
             }

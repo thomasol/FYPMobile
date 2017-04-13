@@ -12,9 +12,9 @@ namespace FinalYearProject.Mobile.Adapters
     {
         public event EventHandler<StoreListRecyclerViewAdapterClickEventArgs> ItemClick;
         public event EventHandler<StoreListRecyclerViewAdapterClickEventArgs> ItemLongClick;
-        List<Product> _stores;
+        Product _stores;
 
-        public StoreListRecyclerViewAdapter(List<Product> stores)
+        public StoreListRecyclerViewAdapter(Product stores)
         {
             _stores = stores;
         }
@@ -35,7 +35,7 @@ namespace FinalYearProject.Mobile.Adapters
         // Replace the contents of a view (invoked by the layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = _stores[position];
+            var item = _stores;
 
             // Replace the contents of the view with that element
             var holder = viewHolder as StoreListRecyclerViewAdapterViewHolder;
@@ -44,7 +44,7 @@ namespace FinalYearProject.Mobile.Adapters
             //var p = y.StoreOptions.Where(x => x.Name == "StoreType" && x.Value == "Online");
         }
 
-        public override int ItemCount => _stores.Count;
+        public override int ItemCount => 1;
 
         void OnClick(StoreListRecyclerViewAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(StoreListRecyclerViewAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
