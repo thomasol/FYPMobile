@@ -6,6 +6,7 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Android.Util;
 using Android.Gms.Auth.Api.SignIn;
+using FinalYearProject.Domain;
 
 namespace FinalYearProject.Mobile.Services
 {
@@ -45,7 +46,7 @@ namespace FinalYearProject.Mobile.Services
         {
             string content = "";
             dynamic fypSearchRequest = new JObject();
-            fypSearchRequest.ProductId = "4719331322168";
+            fypSearchRequest.ProductId = "555";
             var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
             string url = "http://169.254.80.80:1234/api/Products/";
@@ -55,7 +56,7 @@ namespace FinalYearProject.Mobile.Services
                 var response = await httpClient.PutAsync(url, stringContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    content = await response.Content.ReadAsStringAsync();
+                    content = await response.Content.ReadAsAsync<Product>();
                 }
                 else
                 {

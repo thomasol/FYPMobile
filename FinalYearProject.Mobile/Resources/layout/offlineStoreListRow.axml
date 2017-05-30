@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardElevation="4dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardCornerRadius="5dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+          <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:singleLine="true"
+          android:textAllCaps="true"
+          android:text="Local Store Name"
+          android:id="@+id/localStoreName"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" /> 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Address"
+                    android:id="@+id/localStoreListRowTextViewAddress"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+              <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Store Type"
+                    android:id="@+id/localStoreListRowTextViewPrice"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+              <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Store Type"
+                    android:id="@+id/localStoreListRowTextViewDescription"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>

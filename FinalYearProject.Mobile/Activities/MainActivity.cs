@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
@@ -21,8 +18,6 @@ using Android.Gms.Auth.Api;
 using Android.Util;
 using Fragment = Android.Support.V4.App.Fragment;
 using FinalYearProject.Mobile.Helpers;
-using FinalYearProject.Mobile.Services;
-using FinalYearProject.Mobile.Adapters;
 
 namespace FinalYearProject.Mobile.Activities
 {
@@ -31,7 +26,6 @@ namespace FinalYearProject.Mobile.Activities
     {
         Fragment fragment = null;
         Intent _nextActivity;
-        string _productString;
         GoogleSignInAccount _gsc;
 
         DrawerLayout _drawerLayout;
@@ -100,15 +94,8 @@ namespace FinalYearProject.Mobile.Activities
                 ListItemClicked(0);
             }
 
-            _gsc = Intent.GetParcelableExtra("account") as GoogleSignInAccount;
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
-                   .RequestEmail()
-                   .Build();
-
-            _mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .EnableAutoManage(this, this)
-                    .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .Build();
+            _gsc = ((MainApplication)Application).GSC;
+            
         }
 
         private async void GetLocation()
@@ -161,11 +148,9 @@ namespace FinalYearProject.Mobile.Activities
                     break;
                 case 2:
                     fragment = AccountFragment.NewInstance();
-                    Bundle bundle = new Bundle();
-                    bundle.PutParcelable("account", _gsc);
-                    fragment.Arguments = bundle;
                     break;
                 case 3:
+                    SignOut();
                     var result = await Auth.GoogleSignInApi.SignOut(_mGoogleApiClient);
                     if (result.Status.IsSuccess)
                     {
@@ -177,7 +162,9 @@ namespace FinalYearProject.Mobile.Activities
                     }
                     break;
                 case 4:
-                    fragment = StoreListFragment.NewInstance();
+                    fragment = BarcodeScanFragment.NewInstance();
+                    //var _nextActivity = new Intent(this, typeof(ProductListingsActivity));
+                    //StartActivity(_nextActivity);
                     break;
             }
 
@@ -231,13 +218,16 @@ namespace FinalYearProject.Mobile.Activities
             base.OnDestroy();
         }
 
-        public void SetProduct(string productString)
+        private void SignOut()
         {
-            _productString = productString;
-        }
-        public string GetProduct()
-        {
-            return _productString;
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
+                   .RequestEmail()
+                   .Build();
+
+            _mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .EnableAutoManage(this, this)
+                    .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                    .Build();
         }
     }
 }

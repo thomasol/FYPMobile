@@ -24,34 +24,16 @@ using Android.Support.V4.View;
 
 namespace FinalYearProject.Mobile.Fragments
 {
-    public class StoreListFragment : Android.Support.V4.App.Fragment
+    public class SearchResultFragment : Android.Support.V4.App.Fragment
     {
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         StoreListRecyclerViewAdapter mAdapter;
-        Product p;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            var _nextActivity = new Intent(this.Activity, typeof(ProductListingsActivity));
-            StartActivity(_nextActivity);
-            Activity.Title = "Scan Results";
-
-            //try
-            //{
-            //    var myActivity = (MainActivity)this.Activity;
-
-            //    var productString = myActivity.GetProduct();
-
-            //    JObject jsonResponse = JObject.Parse(productString);
-            //    p = jsonResponse.ToObject<Product>();
-            //}
-            //catch (Exception ex)
-            //{
-            //    Log.Debug("StoreList initialisation Fail", ex.ToString());
-            //}
-
+            
             // Create your fragment here
         }
 
@@ -61,9 +43,9 @@ namespace FinalYearProject.Mobile.Fragments
             var y = e.Position;
         }
 
-        public static StoreListFragment NewInstance()
+        public static SearchResultFragment NewInstance()
         {
-            var frag1 = new StoreListFragment { Arguments = new Bundle() };
+            var frag1 = new SearchResultFragment { Arguments = new Bundle() };
             return frag1;
         }
 
@@ -72,17 +54,19 @@ namespace FinalYearProject.Mobile.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             View v = inflater.Inflate(Resource.Layout.storeListFragment, container, false);
-            //mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewStoreList);
+            mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewStoreList);
 
-            //mLayoutManager = new LinearLayoutManager(this.Activity);
-            //mRecyclerView.SetLayoutManager(mLayoutManager);
+            mLayoutManager = new LinearLayoutManager(this.Activity);
+            mRecyclerView.SetLayoutManager(mLayoutManager);
 
-            //mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
-            //// Plug the adapter into the RecyclerView:
-            //mAdapter = new StoreListRecyclerViewAdapter(p);
-            //mAdapter.ItemClick += OnItemClick;
+            mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
+            // Plug the adapter into the RecyclerView:
+            var myActivity = (ProductListingsActivity)Activity;
+            var p = myActivity.GetProduct();
+            mAdapter = new StoreListRecyclerViewAdapter(p);
+            mAdapter.ItemClick += OnItemClick;
 
-            //mRecyclerView.SetAdapter(mAdapter);
+            mRecyclerView.SetAdapter(mAdapter);
             return v;
         }
 

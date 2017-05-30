@@ -5,27 +5,25 @@ using Android.OS;
 using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
-using FinalYearProject.Mobile.Activities;
 using Uri = Android.Net.Uri;
+using Android.Graphics;
+using System.Net;
+using static Android.Graphics.Bitmap;
+using static Android.Graphics.PorterDuff;
 
 namespace FinalYearProject.Mobile.Fragments
 {
     public class AccountFragment : Fragment
     {
         private TextView _mAccountNameTextView;
-        private TextView _mAccountEmail;
-
+        private TextView _mAccountEmailTextView;
+        private ImageView _mAccountPhotoImageButton;
         private GoogleSignInAccount _acct;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Activity.Title = "Account";
-            Bundle bundle = Arguments;
-            if (bundle != null)
-            {
-                _acct = (GoogleSignInAccount)bundle.GetParcelable("account");
-            }
-            // Create your fragment here
+            _acct = ((MainApplication)Activity.Application).GSC;
         }
 
         public static AccountFragment NewInstance()
@@ -34,7 +32,6 @@ namespace FinalYearProject.Mobile.Fragments
             return frag1;
         }
 
-
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             //var ignored = base.OnCreateView(inflater, container, savedInstanceState);
@@ -42,14 +39,55 @@ namespace FinalYearProject.Mobile.Fragments
             _mAccountNameTextView = (TextView)v.FindViewById(Resource.Id.accountName);
             _mAccountNameTextView.Text = _acct.DisplayName;
 
-            string personEmail = _acct.Email;
-            _mAccountEmail = (TextView)v.FindViewById(Resource.Id.accountEmail);
-            _mAccountEmail.Text = personEmail;
+            string personEmail = "Email: " +_acct.Email;
+            _mAccountEmailTextView = (TextView)v.FindViewById(Resource.Id.accountEmail);
+            _mAccountEmailTextView.Text = personEmail;
+
             string personId = _acct.Id;
-            Uri personPhoto = _acct.PhotoUrl;
+
+            Uri imageUri = _acct.PhotoUrl;
+            string imageLocation = "https:" + imageUri.SchemeSpecificPart;
+            var imageBitmap = GetImageBitmapFromUrl(imageLocation);
+
+            _mAccountPhotoImageButton = (ImageView)v.FindViewById(Resource.Id.user_profile_photo);
+            _mAccountPhotoImageButton.SetImageBitmap(imageBitmap);
             return v;
-            //return inflater.Inflate(Resource.Layout.accountFragment, null);
         }
-        
+        private Bitmap GetImageBitmapFromUrl(string url)
+        {
+            Bitmap imageBitmap = null;
+            using (var webClient = new WebClient())
+            {
+                var imageBytes = webClient.DownloadData(url);
+                if (imageBytes != null && imageBytes.Length > 0)
+                {
+                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                }
+            }
+            Bitmap bMap = getRoundedCornerBitmap(imageBitmap);
+            return bMap;
+        }
+
+        public static Bitmap getRoundedCornerBitmap(Bitmap bitmap)
+        {
+            Bitmap output = Bitmap.CreateBitmap(bitmap.Width,
+                bitmap.Height, Config.Argb8888);
+            Canvas canvas = new Canvas(output);
+
+            Paint paint = new Paint();
+            Rect rect = new Rect(0, 0, bitmap.Width, bitmap.Height);
+            RectF rectF = new RectF(rect);
+            const float roundPx = 45;
+
+            paint.AntiAlias = true;
+            canvas.DrawARGB(0, 0, 0, 0);
+            paint.Color = (Color.ParseColor("#BAB399"));
+            canvas.DrawRoundRect(rectF, roundPx, roundPx, paint);
+
+            paint.SetXfermode(new PorterDuffXfermode(Mode.SrcIn));
+            canvas.DrawBitmap(bitmap, rect, rect, paint);
+
+            return output;
+        }
     }
 }

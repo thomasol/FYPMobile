@@ -10,6 +10,7 @@ using FinalYearProject.Mobile.Activities;
 using FinalYearProject.Mobile.Services;
 using Android.Util;
 using Android.App;
+using Android.Gms.Auth.Api.SignIn;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -17,13 +18,16 @@ namespace FinalYearProject.Mobile.Fragments
     {
         MobileBarcodeScanner _scanner;
         private ProgressDialog _mProgressDialog;
-        Intent _nextActivity;
+        private GoogleSignInAccount _acct;
 
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Activity.Title = "Barcode Scan";
-            DoLookup("test");
+
+            _acct = ((MainApplication)Activity.Application).GSC;
+
+            await DoLookup("test");
             //try
             //{
             //    await Scanny();
@@ -72,28 +76,19 @@ namespace FinalYearProject.Mobile.Fragments
             }
         }
 
-        private async void DoLookup(string text)
+        private async Task DoLookup(string text)
         {
-            IAPIService restService = new APIService();
-
-            var productString = await restService.SearchByEAN(text);
+            IAPIService apiService = new APIService();
+            ShowProgressDialog();
+            text = "555";
+            var productString = await apiService.SearchByEAN(text);
             //HideProgressDialog();
 
-            var fragment = StoreListFragment.NewInstance();
-            var myActivity = (MainActivity)this.Activity;
-            myActivity.SetProduct(productString);
-
-            fragment.Arguments.PutString("product", productString);
-
-            Activity.SupportFragmentManager.BeginTransaction()
-                .Replace(Resource.Id.content_frame, fragment)
-                .AddToBackStack(null)
-                .Commit();
-
-            //_nextActivity = new Intent(this.Activity, typeof(StoreListFragment));
-            //_nextActivity.PutExtra("product", productString);
-            //_nextActivity.PutExtra("ean", text);
-            //StartActivity(_nextActivity);
+            var intent = new Intent(Activity, typeof(ProductListingsActivity));
+            intent.PutExtra("productString", productString);
+            intent.PutExtra("account", _acct);
+            StartActivity(intent);
+            
         }
 
         private void ShowProgressDialog()

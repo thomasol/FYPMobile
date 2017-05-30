@@ -194,31 +194,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\HomeActivity.cs" />
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\ProductListingsActivity.cs" />
     <Compile Include="Activities\SignInActivity.cs" />
     <Compile Include="Adapters\ExpandableRecyclerAdapter.cs" />
     <Compile Include="Adapters\ExpandableRecyclerAdapterHelper.cs" />
+    <Compile Include="Adapters\OfflineStoreRecyclerViewAdapter.cs" />
     <Compile Include="Adapters\ProductListingRecyclerViewAdapter.cs" />
+    <Compile Include="Adapters\OnlineStoreRecyclerViewAdapter.cs" />
     <Compile Include="Adapters\StoreListRecyclerViewAdapter.cs" />
     <Compile Include="Adapters\StoreListTabbedAdapter.cs" />
     <Compile Include="Adapters\ViewPagerAdapter.cs" />
     <Compile Include="ClickListeners\IParentItemClickListener.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BarcodeScanFragment.cs" />
-    <Compile Include="Fragments\OfflineStores.cs" />
-    <Compile Include="Fragments\OnlineStores.cs" />
+    <Compile Include="Fragments\OfflineStoresFragment.cs" />
+    <Compile Include="Fragments\OnlineStoresFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
-    <Compile Include="Fragments\StoreListFragment.cs" />
+    <Compile Include="Fragments\SearchResultFragment.cs" />
     <Compile Include="ClickListeners\IExpandCollapseListener.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Models\IParentObject.cs" />
     <Compile Include="Models\ParentWrapper.cs" />
-    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Helpers\LocationHelper.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Services\IAPIService.cs" />
     <Compile Include="Services\APIService.cs" />
     <Compile Include="ViewHolders\ChildViewHolder.cs" />
@@ -243,7 +244,6 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
-    <AndroidResource Include="Resources\layout\Home.axml" />
     <AndroidResource Include="Resources\layout\ProductListings.axml" />
     <AndroidResource Include="Resources\layout\barcodeScanFragment.axml">
       <SubType>Designer</SubType>
@@ -258,6 +258,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\newUserFormFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\onlineStoreFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\offlineStoreFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\offlineStoreListRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -350,6 +359,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-mdpi\ic_search_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\ic_network_wifi_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_network_wifi_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_network_wifi_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-mdpi\ic_network_wifi_white_24dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_network_wifi_white_24dp.png" />
   </ItemGroup>
   <Import Project="packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
   <Import Project="packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\build\Xamarin.GooglePlayServices.Basement.targets" Condition="Exists('packages\Xamarin.GooglePlayServices.Basement.29.0.0.2\build\Xamarin.GooglePlayServices.Basement.targets')" />

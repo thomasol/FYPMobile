@@ -20,5 +20,6 @@ namespace FinalYearProject.Domain
         public string Stock { get; set; }
         public double? Price { get; set; }
         public Gps Gps { get; set; }
+        public int Id { get; set; }
     }
 }

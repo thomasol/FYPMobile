@@ -16,10 +16,11 @@ using Android.Support.V7.App;
 using Android.Util;
 using Android.Gms.Location;
 using FinalYearProject.Mobile.Services;
+using FinalYearProject.Mobile.Helpers;
 
 namespace FinalYearProject.Mobile.Activities
 {
-    [Activity(Label = "SignInActivity", MainLauncher = true)]
+    [Activity(Label = "FYP App", MainLauncher = true)]
     public class SignInActivity : AppCompatActivity, GoogleApiClient.IOnConnectionFailedListener, View.IOnClickListener
     {
         private const string TAG = "SignInActivity";
@@ -49,6 +50,7 @@ namespace FinalYearProject.Mobile.Activities
             // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
                     .RequestEmail()
+                    .RequestProfile()
                     .Build();
             // [END configure_signin]
 
@@ -141,15 +143,12 @@ namespace FinalYearProject.Mobile.Activities
         {
             if (signedIn)
             {
-                //if(CheckNewUser(_acct.Id))
-                //{
-
-                //}
                 FindViewById(Resource.Id.sign_in_button).Visibility = ViewStates.Gone;
                 FindViewById(Resource.Id.sign_out_and_disconnect).Visibility = ViewStates.Visible;
 
                 _nextActivity = new Intent(this, typeof(MainActivity));
-                _nextActivity.PutExtra("account", _acct);
+                ((MainApplication)Application).GSC = _acct;
+
                 StartActivity(_nextActivity);
             }
             else
