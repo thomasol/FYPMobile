@@ -28,6 +28,16 @@ namespace FinalYearProject.Api.Controllers
             // Act
             search.Add(user);
         }
+
+        public void Put([FromBody]User user)
+        {
+            // Arrange
+            var search = new SearchRepository<User>("user", "fyp");
+            search.AddMappings(user);
+
+            // Act
+            search.Update(user);
+        }
         public void Delete(int id)
         {
             var search = new SearchRepository<User>("user", "fyp");

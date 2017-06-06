@@ -14,9 +14,9 @@ namespace FinalYearProject.Domain
         public string Lat { get; set; }
         public string Lon { get; set; }
         public string Url { get; set; }
-        public string StoreCode { get; set; }
-        public Guid SearchGUID { get; set; }
-        public Guid ImpressionGUID { get; set; }
-        public Guid ClickGUID { get; set; }
+        public Guid SearchGuid { get; set; }
+        public Guid ImpressionGuid { get; set; }
+        public Guid ClickGuid { get; set; }
+        public int StoreCode { get; set; }
     }
 }

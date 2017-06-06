@@ -5,12 +5,13 @@ using Android.Views;
 using ZXing.Mobile;
 using ZXing.Net.Mobile.Forms.Android;
 using Fragment = Android.Support.V4.App.Fragment;
-using Android.Content;
-using FinalYearProject.Mobile.Activities;
 using FinalYearProject.Mobile.Services;
-using Android.Util;
 using Android.App;
 using Android.Gms.Auth.Api.SignIn;
+using Newtonsoft.Json.Linq;
+using FinalYearProject.Domain;
+using FinalYearProject.Mobile.Activities;
+using Android.Util;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -68,7 +69,7 @@ namespace FinalYearProject.Mobile.Fragments
 
             if(result != null && !string.IsNullOrEmpty(result.Text))
             {
-                DoLookup(result.Text);
+                await DoLookup(result.Text);
             }
             else
             {
@@ -79,16 +80,39 @@ namespace FinalYearProject.Mobile.Fragments
         private async Task DoLookup(string text)
         {
             IAPIService apiService = new APIService();
-            ShowProgressDialog();
             text = "555";
-            var productString = await apiService.SearchByEAN(text);
-            //HideProgressDialog();
+            ShowProgressDialog();
 
-            var intent = new Intent(Activity, typeof(ProductListingsActivity));
-            intent.PutExtra("productString", productString);
-            intent.PutExtra("account", _acct);
-            StartActivity(intent);
+            var productString = await apiService.SearchByEAN(text);
+
+            SetProduct(productString);
             
+            Fragment frag = ProductListingsFragment.NewInstance();
+            HideProgressDialog();
+            
+            Activity.SupportFragmentManager.BeginTransaction()
+            .Replace(Resource.Id.content_frame, frag)
+            .AddToBackStack(null)
+            .Commit();
+        }
+
+        private void SetProduct(string productString)
+        {
+            try
+            {
+                if (productString != "Data not available")
+                {
+                    JObject jsonResponse = JObject.Parse(productString);
+                    Product _p = jsonResponse.ToObject<Product>();
+                    var myActivity = (MainActivity)Activity;
+                    myActivity.SetProduct(_p);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("ProductString initialisation Fail", ex.ToString());
+            }
         }
 
         private void ShowProgressDialog()
@@ -110,16 +134,6 @@ namespace FinalYearProject.Mobile.Fragments
                 _mProgressDialog.Hide();
             }
         }
-
-        //public override void OnDestroy()
-        //{
-        //    base.OnDestroy();
-        //    _scanner.Cancel();
-        //}
-        //public override void OnPause()
-        //{
-        //    base.OnPause();
-        //    _scanner.Cancel();
-        //}
+        
     }
 }

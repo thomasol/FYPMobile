@@ -224,5 +224,10 @@ namespace FinalYearProject.Mobile.Activities
             }
         }
         // [END revokeAccess]
+
+        public GoogleApiClient GetGoogleApiClient()
+        {
+            return _mGoogleApiClient;
+        }
     }
 }

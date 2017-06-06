@@ -17,7 +17,6 @@ namespace FinalYearProject.Mobile
         {
         }
         private GoogleSignInAccount _acct;
-        private IAPIService _restService;
 
         public GoogleSignInAccount GSC
         {

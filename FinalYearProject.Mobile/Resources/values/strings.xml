@@ -76,5 +76,6 @@
     <item>Neptune</item>
   </string-array>
 
-  <string name="form_gender">Gender</string> 
+  <string name="form_gender">Gender</string>
+  <string name="submit">Submit</string>
 </resources>

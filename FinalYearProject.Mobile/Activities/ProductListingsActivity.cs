@@ -2,9 +2,6 @@ using System;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using FinalYearProject.Mobile.Helpers;
 using FinalYearProject.Mobile.Services;
 using Newtonsoft.Json.Linq;
@@ -14,28 +11,15 @@ using FinalYearProject.Mobile.Fragments;
 using Android.Support.Design.Widget;
 using FinalYearProject.Domain;
 using Android.Util;
-using Android.Gms.Auth.Api.SignIn;
-using Android.Support.V4.Widget;
 using Android.Gms.Common.Apis;
-using Android.Gms.Auth.Api;
-using Android.Gms.Common;
 using Android.Support.V4.View;
+using System.Collections.Generic;
 
 namespace FinalYearProject.Mobile.Activities
 {
     [Activity(Label = "Search Results")]
     public class ProductListingsActivity :  BaseActivity, GoogleApiClient.IOnConnectionFailedListener
     {
-        Android.Support.V4.App.Fragment fragment = null;
-        GoogleSignInAccount _gsc;
-
-        DrawerLayout _drawerLayout;
-        NavigationView _navigationView;
-
-        private TextView _mUsernameTextView;
-        GoogleApiClient _mGoogleApiClient;
-        int _oldPosition = -1;
-
         private TabLayout tabLayout;
         private ViewPager viewPager;
 
@@ -47,12 +31,14 @@ namespace FinalYearProject.Mobile.Activities
 
         private SearchResultFragment _searchResultsFragment;
         private OnlineStoresFragment _onlineStoresFragment;
-        private OfflineStoresFragment _offlineStoresFragment;
+        private LocalStoresFragment _offlineStoresFragment;
 
-        Android.Support.V7.Widget.ShareActionProvider _actionProvider;
         Product _p;
-        private const string TAG = "ProductListingsActivity";
+        List<Guid> _localImpressionsGuid = null;
+        List<Guid> _onlineImpressionsGuid = null;
 
+        private const string TAG = "ProductListingsActivity";
+        ViewPagerAdapter _adapter = null;
         protected override int LayoutResource
         {
             get
@@ -63,6 +49,8 @@ namespace FinalYearProject.Mobile.Activities
         protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            SetContentView(LayoutResource);
+            base.OnCreateDrawer(savedInstanceState);
 
             viewPager = FindViewById<ViewPager>(Resource.Id.viewpager);
             setupViewPager(viewPager);
@@ -72,49 +60,49 @@ namespace FinalYearProject.Mobile.Activities
             setupTabIcons();
 
             #region nav/drawer layout
-            _drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //Set hamburger items menu
-            SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
-            //setup navigation view
-            _navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            //handle navigation
-            _navigationView.NavigationItemSelected += (sender, e) =>
-            {
-                e.MenuItem.SetChecked(true);
+            //_drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            ////Set hamburger items menu
+            //SupportActionBar.SetHomeAsUpIndicator(Resource.Drawable.ic_menu);
+            ////setup navigation view
+            //_navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            ////handle navigation
+            //_navigationView.NavigationItemSelected += (sender, e) =>
+            //{
+            //    e.MenuItem.SetChecked(true);
 
-                switch (e.MenuItem.ItemId)
-                {
-                    //case Resource.Id.navSearch:
-                    //    ListItemClicked(0);
-                    //    break;
-                    case Resource.Id.navBarcodeSearch:
-                        ListItemClicked(1);
-                        break;
-                    case Resource.Id.navAccount:
-                        ListItemClicked(2);
-                        break;
-                    case Resource.Id.navSignOut:
-                        ListItemClicked(3);
-                        break;
-                    case Resource.Id.storeListTest:
-                        ListItemClicked(4);
-                        break;
-                }
-                //Snackbar.Make(_drawerLayout, "You selected: " + e.MenuItem.TitleFormatted, Snackbar.LengthLong)
-                //    .Show();
-                _drawerLayout.CloseDrawers();
-            };
+            //    switch (e.MenuItem.ItemId)
+            //    {
+            //        //case Resource.Id.navSearch:
+            //        //    ListItemClicked(0);
+            //        //    break;
+            //        case Resource.Id.navBarcodeSearch:
+            //            ListItemClicked(1);
+            //            break;
+            //        case Resource.Id.navAccount:
+            //            ListItemClicked(2);
+            //            break;
+            //        case Resource.Id.navSignOut:
+            //            ListItemClicked(3);
+            //            break;
+            //        case Resource.Id.storeListTest:
+            //            ListItemClicked(4);
+            //            break;
+            //    }
+            //    //Snackbar.Make(_drawerLayout, "You selected: " + e.MenuItem.TitleFormatted, Snackbar.LengthLong)
+            //    //    .Show();
+            //    _drawerLayout.CloseDrawers();
+            //};
 
-            _gsc = ((MainApplication)Application).GSC;
+            //_gsc = ((MainApplication)Application).GSC;
 
-            //GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
-            //       .RequestEmail()
-            //       .Build();
+            ////GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
+            ////       .RequestEmail()
+            ////       .Build();
 
-            //_mGoogleApiClient = new GoogleApiClient.Builder(this)
-            //        .EnableAutoManage(this, this)
-            //        .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
-            //        .Build();
+            ////_mGoogleApiClient = new GoogleApiClient.Builder(this)
+            ////        .EnableAutoManage(this, this)
+            ////        .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
+            ////        .Build();
             #endregion
 
             try
@@ -135,16 +123,6 @@ namespace FinalYearProject.Mobile.Activities
             await CreateImpressionEvent();
         }
 
-        public void SetProduct(Product productString)
-        {
-            _p = productString;
-        }
-
-        public Product GetProduct()
-        {
-            return _p;
-        }
-
         private void setupTabIcons()
         {
             tabLayout.GetTabAt(0).SetIcon(tabIcons[0]);
@@ -156,18 +134,18 @@ namespace FinalYearProject.Mobile.Activities
         {
             _searchResultsFragment = new SearchResultFragment();
             _onlineStoresFragment = new OnlineStoresFragment();
-            _offlineStoresFragment = new OfflineStoresFragment();
+            _offlineStoresFragment = new LocalStoresFragment();
         }
 
         public void setupViewPager(ViewPager viewPager)
         {
             InitialiseFragments();
-            ViewPagerAdapter adapter = new ViewPagerAdapter(SupportFragmentManager);
-            adapter.addFragment(_searchResultsFragment, "Search Results");
-            adapter.addFragment(_onlineStoresFragment, "Online");
-            adapter.addFragment(_offlineStoresFragment, "Offline");
+            _adapter = new ViewPagerAdapter(SupportFragmentManager);
+            _adapter.addFragment(_searchResultsFragment, "Search Results");
+            _adapter.addFragment(_onlineStoresFragment, "Online");
+            _adapter.addFragment(_offlineStoresFragment, "Offline");
 
-            viewPager.Adapter = adapter;
+            viewPager.Adapter = _adapter;
         }
 
         private async Task CreateImpressionEvent()
@@ -178,8 +156,8 @@ namespace FinalYearProject.Mobile.Activities
                 dynamic impressionEvent = new JObject();
                 var pos = LocationHelper.Position;
 
-                var searchGUID = Guid.NewGuid();
-                impressionEvent.SearchGUID = searchGUID;
+                var _searchGuid = Guid.NewGuid();
+                impressionEvent.SearchGuid = _searchGuid;
                 impressionEvent.CreatedAt = DateTime.Now;
                 impressionEvent.Lon = pos.Longitude;
                 impressionEvent.Lat = pos.Latitude;
@@ -188,19 +166,22 @@ namespace FinalYearProject.Mobile.Activities
 
                 for (int i = 0; i < _p.LocalStores.Count; i++)
                 {
-                    var impressionGUID = Guid.NewGuid();
+                    var impressionGuid = Guid.NewGuid();
+                    impressionEvent.ImpressionGuid = impressionGuid;
                     impressionEvent.Description = "Search Event Local Store";
-                    impressionEvent.GUID = impressionGUID;
                     impressionEvent.StoreCode = _p.LocalStores[i].StoreCode;
+                    _localImpressionsGuid[i] = impressionGuid;
                     await restService.SaveEvent(impressionEvent);
                 }
                 for (int i = 0; i < _p.OnlineStores.Count; i++)
                 {
-                    var impressionGUID = Guid.NewGuid();
+                    var impressionGuid = Guid.NewGuid();
+                    impressionEvent.ImpressionGuid = impressionGuid;
                     impressionEvent.Description = "Search Event Online Store";
-                    impressionEvent.GUID = impressionGUID;
                     impressionEvent.Url = _p.OnlineStores[i].Url;
+                    _onlineImpressionsGuid[i] = impressionGuid;
                     await restService.SaveEvent(impressionEvent);
+
                 }
             }
             catch (Exception ex)
@@ -208,97 +189,41 @@ namespace FinalYearProject.Mobile.Activities
                 Log.Debug(TAG, ex.ToString());
             }
         }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            this.MenuInflater.Inflate(Resource.Menu.menu_share1, menu);
-
-            var shareItem = menu.FindItem(Resource.Id.action_share);
-            var provider = MenuItemCompat.GetActionProvider(shareItem);
-
-            _actionProvider = provider.JavaCast<Android.Support.V7.Widget.ShareActionProvider>();
-
-            _mUsernameTextView = (TextView)FindViewById(Resource.Id.usernameHeader);
-            _mUsernameTextView.Text = _gsc.DisplayName + " signed in.";
-
-            return base.OnCreateOptionsMenu(menu);
-        }
-
-        private async void ListItemClicked(int position)
-        {
-            //this way we don't load twice, but you might want to modify this a bit.
-            if (position == _oldPosition)
-                return;
-            _oldPosition = position;
-
-            switch (position)
-            {
-                case 0:
-                    
-                    fragment = SearchFragment.NewInstance();
-                    break;
-                case 1:
-                    fragment = BarcodeScanFragment.NewInstance();
-                    break;
-                case 2:
-                    _searchResultsFragment.Dispose();
-                    break;
-                case 3:
-                    SignOut();
-                    var result = await Auth.GoogleSignInApi.SignOut(_mGoogleApiClient);
-                    if (result.Status.IsSuccess)
-                    {
-                        Intent nextActivity = new Intent(this, typeof(SignInActivity));
-                        nextActivity.AddFlags(ActivityFlags.ClearTop | ActivityFlags.ClearTask | ActivityFlags.NewTask);
-                        StartActivity(nextActivity);
-                        Finish();
-                        return;
-                    }
-                    break;
-                case 4:
-                    fragment = BarcodeScanFragment.NewInstance();
-                    //var _nextActivity = new Intent(this, typeof(ProductListingsActivity));
-                    //StartActivity(_nextActivity);
-                    break;
-            }
-
-            SupportFragmentManager.BeginTransaction()
-            .Replace(Resource.Id.content_frame, fragment)
-            .AddToBackStack(null)
-            .Commit();
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-                    _drawerLayout.OpenDrawer(Android.Support.V4.View.GravityCompat.Start);
-                    return true;
-            }
-            return base.OnOptionsItemSelected(item);
-        }
-
-        public void OnConnectionFailed(ConnectionResult result)
-        {
-            Log.Debug(TAG, "Main Activity Connection Error");
-        }
-
+        
         protected override void OnDestroy()
         {
             base.OnDestroy();
         }
 
-        private void SignOut()
+        protected override void OnPause()
         {
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DefaultSignIn)
-                   .RequestEmail()
-                   .Build();
+            base.OnPause();
+            Finish();
+        }
 
-            _mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .EnableAutoManage(this, this)
-                    .AddApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                    .Build();
+        protected override void OnPostResume()
+        {
+            base.OnPostResume();
+        }
+
+        public Guid GetLocalImpressionGuid(int position)
+        {
+            return _localImpressionsGuid[position];
+        }
+
+        public Guid GetOnlineImpressionGuid(int position)
+        {
+            return _onlineImpressionsGuid[position];
+        }
+        
+        public void SetProduct(Product productString)
+        {
+            _p = productString;
+        }
+
+        public Product GetProduct()
+        {
+            return _p;
         }
     }
 }

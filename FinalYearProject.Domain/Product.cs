@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FinalYearProject.Domain
 {
     public class Product
     {
+        public string Description { get; set; }
         public int ModelId { get; set; }
         public string ModelNo { get; set; }
         public string Mpn { get; set; }

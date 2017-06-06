@@ -20,5 +20,6 @@ namespace FinalYearProject.Mobile.Services
         Task<string> SearchByEAN(string ean);
         Task<bool> SaveEvent(JObject ev);
         Task<string> CheckUser(GoogleSignInAccount _acct);
+        Task UpdateUser(JObject ev);
     }
 }

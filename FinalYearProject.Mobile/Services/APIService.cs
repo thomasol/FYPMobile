@@ -6,18 +6,25 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using Android.Util;
 using Android.Gms.Auth.Api.SignIn;
-using FinalYearProject.Domain;
 
 namespace FinalYearProject.Mobile.Services
 {
     public class APIService: IAPIService
     {
-        HttpClient httpClient = new HttpClient();
+        static HttpClient httpClient = null;
 
         public APIService()
         {
+            httpClient =  httpClient ?? GetNewClient();
+        }
+
+        private HttpClient GetNewClient()
+        {
             httpClient = new HttpClient();
-            httpClient.MaxResponseContentBufferSize = 256000;
+            //httpClient.MaxResponseContentBufferSize = 256000;
+            //httpClient.BaseAddress = new Uri("http://169.254.80.80:1234/");
+            httpClient.BaseAddress = new Uri("http://sample-env.7ap3ue2fyp.eu-west-1.elasticbeanstalk.com/");
+            return httpClient;
         }
 
         public async Task<bool> SaveEvent(JObject ev)
@@ -25,7 +32,7 @@ namespace FinalYearProject.Mobile.Services
             var jsonString = JsonConvert.SerializeObject(ev);
 
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
-            string url = "http://169.254.80.80:1234/api/Events/";
+            string url = "api/Events/";
             try
             {
                 var response = await httpClient.PostAsync(url, stringContent);
@@ -49,14 +56,14 @@ namespace FinalYearProject.Mobile.Services
             fypSearchRequest.ProductId = "555";
             var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
-            string url = "http://169.254.80.80:1234/api/Products/";
+            string url = "api/Products/";
 
             try
             {
                 var response = await httpClient.PutAsync(url, stringContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    content = await response.Content.ReadAsAsync<Product>();
+                    content = await response.Content.ReadAsStringAsync();
                 }
                 else
                 {
@@ -72,7 +79,7 @@ namespace FinalYearProject.Mobile.Services
 
         public async Task<bool> UserExists(string id)
         {
-            string url = "http://169.254.80.80:1234/api/User/" + id;
+            string url = "api/User/" + id;
 
             var response = await httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
@@ -89,7 +96,7 @@ namespace FinalYearProject.Mobile.Services
         public async Task<string> CheckUser(GoogleSignInAccount _acct)
         {
             string content = "";
-            string url = "http://169.254.80.80:1234/api/User/" + _acct.Id;
+            string url = "api/User/" + _acct.Id;
 
             try
             {
@@ -115,7 +122,7 @@ namespace FinalYearProject.Mobile.Services
             string content = "";
             var jsonString = JsonConvert.SerializeObject(user);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
-            string url = "http://169.254.80.80:1234/api/User/";
+            string url = "api/User/";
 
             try
             {
@@ -134,6 +141,26 @@ namespace FinalYearProject.Mobile.Services
                 Log.Debug("AddUser Error", ex.ToString());
             }
             return content;
+        }
+
+        public async Task UpdateUser(JObject ev)
+        {
+            var jsonString = JsonConvert.SerializeObject(ev);
+
+            var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
+            string url = "api/User/";
+            try
+            {
+                var response = await httpClient.PutAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("Update User Error", ex.ToString());
+            }
         }
     }
 }

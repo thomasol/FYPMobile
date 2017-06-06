@@ -14,8 +14,8 @@ namespace FinalYearProject.Search
         public ISearchResponse<Product> SearchLocations(FypSearchRequest search)
         {
             QueryContainer productIdQuery = new QueryContainer();
-            QueryContainer storeQuery = new QueryContainer();
-            QueryContainer geoQuery = new QueryContainer();
+            //QueryContainer storeQuery = new QueryContainer();
+            //QueryContainer geoQuery = new QueryContainer();
 
             if (search.ProductId != null)
             {

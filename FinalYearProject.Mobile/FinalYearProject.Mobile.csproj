@@ -197,19 +197,16 @@
     <Compile Include="Activities\MainActivity.cs" />
     <Compile Include="Activities\ProductListingsActivity.cs" />
     <Compile Include="Activities\SignInActivity.cs" />
-    <Compile Include="Adapters\ExpandableRecyclerAdapter.cs" />
-    <Compile Include="Adapters\ExpandableRecyclerAdapterHelper.cs" />
-    <Compile Include="Adapters\OfflineStoreRecyclerViewAdapter.cs" />
-    <Compile Include="Adapters\ProductListingRecyclerViewAdapter.cs" />
+    <Compile Include="Adapters\LocalStoreRecyclerViewAdapter.cs" />
     <Compile Include="Adapters\OnlineStoreRecyclerViewAdapter.cs" />
-    <Compile Include="Adapters\StoreListRecyclerViewAdapter.cs" />
-    <Compile Include="Adapters\StoreListTabbedAdapter.cs" />
+    <Compile Include="Adapters\ProductRecyclerViewAdapter.cs" />
     <Compile Include="Adapters\ViewPagerAdapter.cs" />
     <Compile Include="ClickListeners\IParentItemClickListener.cs" />
     <Compile Include="Fragments\AccountFragment.cs" />
     <Compile Include="Fragments\BarcodeScanFragment.cs" />
-    <Compile Include="Fragments\OfflineStoresFragment.cs" />
+    <Compile Include="Fragments\LocalStoresFragment.cs" />
     <Compile Include="Fragments\OnlineStoresFragment.cs" />
+    <Compile Include="Fragments\ProductListingsFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="Fragments\SearchResultFragment.cs" />
     <Compile Include="ClickListeners\IExpandCollapseListener.cs" />
@@ -224,10 +221,9 @@
     <Compile Include="Services\APIService.cs" />
     <Compile Include="ViewHolders\ChildViewHolder.cs" />
     <Compile Include="ViewHolders\ParentViewHolder.cs" />
-    <Compile Include="ViewHolders\StoreListChildViewHolder.cs" />
-    <Compile Include="ViewHolders\StoreListParentViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -239,36 +235,41 @@
     <AndroidResource Include="Resources\layout\accountFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\main.axml" />
+    <AndroidResource Include="Resources\layout\main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\nav_header.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.axml" />
-    <AndroidResource Include="Resources\layout\ProductListings.axml" />
-    <AndroidResource Include="Resources\layout\barcodeScanFragment.axml">
+    <AndroidResource Include="Resources\layout\ProductListings.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\searchFragment.axml">
+    <AndroidResource Include="Resources\layout\barcodeScanFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\storeListFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\storeListRow.axml">
+    <AndroidResource Include="Resources\layout\onlineStoreListRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\newUserFormFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\onlineStoreFragment.axml">
+    <AndroidResource Include="Resources\layout\onlineStoreTab.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\offlineStoreFragment.axml">
+    <AndroidResource Include="Resources\layout\localStoreTab.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\offlineStoreListRow.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\productRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\searchFragment.axml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml">

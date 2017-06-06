@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Android.Support.V4.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
-using Android.Util;
 using Android.Views;
-using Android.Widget;
 using System.Net.Http;
 using FinalYearProject.Domain;
 using Newtonsoft.Json.Linq;
@@ -19,8 +15,6 @@ using FinalYearProject.Mobile.Adapters;
 using FinalYearProject.Mobile.Activities;
 using Android.Graphics.Drawables;
 using Android.Content.Res;
-using Android.Support.Design.Widget;
-using Android.Support.V4.View;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -28,17 +22,14 @@ namespace FinalYearProject.Mobile.Fragments
     {
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
-        StoreListRecyclerViewAdapter mAdapter;
+        ProductRecyclerViewAdapter mAdapter;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
-            // Create your fragment here
         }
-
         
-        private void OnItemClick(object sender, StoreListRecyclerViewAdapterClickEventArgs e)
+        private void OnItemClick(object sender, ProductRecyclerViewAdapterClickEventArgs e)
         {
             var y = e.Position;
         }
@@ -51,8 +42,6 @@ namespace FinalYearProject.Mobile.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             View v = inflater.Inflate(Resource.Layout.storeListFragment, container, false);
             mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewStoreList);
 
@@ -60,10 +49,9 @@ namespace FinalYearProject.Mobile.Fragments
             mRecyclerView.SetLayoutManager(mLayoutManager);
 
             mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
-            // Plug the adapter into the RecyclerView:
-            var myActivity = (ProductListingsActivity)Activity;
+            var myActivity = (MainActivity)Activity;
             var p = myActivity.GetProduct();
-            mAdapter = new StoreListRecyclerViewAdapter(p);
+            mAdapter = new ProductRecyclerViewAdapter(p);
             mAdapter.ItemClick += OnItemClick;
 
             mRecyclerView.SetAdapter(mAdapter);

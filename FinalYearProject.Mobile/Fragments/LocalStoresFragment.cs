@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.Support.V7.Widget;
 using FinalYearProject.Mobile.Adapters;
 using FinalYearProject.Mobile.Activities;
@@ -18,24 +10,22 @@ using Newtonsoft.Json.Linq;
 
 namespace FinalYearProject.Mobile.Fragments
 {
-    public class OnlineStoresFragment : Android.Support.V4.App.Fragment
+    public class LocalStoresFragment : Android.Support.V4.App.Fragment
     {
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
-        OnlineStoreRecyclerViewAdapter mAdapter;
+        LocalStoreRecyclerViewAdapter mAdapter;
         Product _p;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
+            
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            View v = inflater.Inflate(Resource.Layout.onlineStoreTab, container, false);
-            mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewOnlineStores);
+            View v = inflater.Inflate(Resource.Layout.localStoreTab, container, false);
+            mRecyclerView = v.FindViewById<RecyclerView>(Resource.Id.recyclerViewOfflineStores);
 
             mLayoutManager = new LinearLayoutManager(this.Activity);
             mRecyclerView.SetLayoutManager(mLayoutManager);
@@ -44,39 +34,30 @@ namespace FinalYearProject.Mobile.Fragments
             // Plug the adapter into the RecyclerView:
             var myActivity = (MainActivity)Activity;
             _p = myActivity.GetProduct();
-            mAdapter = new OnlineStoreRecyclerViewAdapter(_p);
+            mAdapter = new LocalStoreRecyclerViewAdapter(_p.LocalStores);
             mAdapter.ItemClick += OnItemClick;
 
             mRecyclerView.SetAdapter(mAdapter);
             return v;
         }
 
-        private async void OnItemClick(object sender, OnlineStoreRecyclerViewAdapterClickEventArgs e)
+        private async void OnItemClick(object sender, LocalStoreRecyclerViewAdapterClickEventArgs e)
         {
             int position = e.Position;
-            var onlineStore = _p.OnlineStores[position];
-
-            //string url = onlineStore.Url;
-            string url = "http://www.google.com";
-            var uri = Android.Net.Uri.Parse(url);
-            var intent = new Intent(Intent.ActionView, uri);
-            StartActivity(intent);
+            var store = _p.LocalStores[position];
 
             IAPIService restService = new APIService();
             dynamic clickEvent = new JObject();
 
-            var clickGUID = Guid.NewGuid();
-            clickEvent.ClickGUID = clickGUID;
-            Guid _impressionGuid = ((MainActivity)Activity).GetOnlineImpressionGuid(position);
+            var _clickGuid = Guid.NewGuid();
+            clickEvent.ClickGuid = _clickGuid;
+            clickEvent.StoreCode = store.StoreCode;
+            Guid _impressionGuid = ((MainActivity)Activity).GetLocalImpressionGuid(position);
             clickEvent.ImpressionGuid = _impressionGuid;
             clickEvent.CreatedAt = DateTime.Now;
-            clickEvent.EAN = _p.Ean;
             clickEvent.Type = 2;
 
             await restService.SaveEvent(clickEvent);
-
-           
-
         }
     }
 }

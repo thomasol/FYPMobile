@@ -24,7 +24,7 @@ namespace FinalYearProject.Mobile.Adapters
         {
             //Setup your layout here
             View itemView = null;
-            var id = Resource.Layout.storeListRow;
+            var id = Resource.Layout.onlineStoreListRow;
             itemView = LayoutInflater.From(parent.Context).
             Inflate(id, parent, false);
 
@@ -55,12 +55,21 @@ namespace FinalYearProject.Mobile.Adapters
     {
         public TextView Description { get; set; }
         public TextView StoreType { get; set; }
+        public int StoreCode { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string Stock { get; set; }
+        public double? Price { get; set; }
 
         public OnlineStoreRecyclerViewAdapterViewHolder(View itemView, Action<OnlineStoreRecyclerViewAdapterClickEventArgs> clickListener,
                             Action<OnlineStoreRecyclerViewAdapterClickEventArgs> longClickListener) : base(itemView)
         {
-            Description = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextView);
+            Description = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextViewDetails);
             StoreType = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextViewStoreType);
+            //StoreCode = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextViewStoreCode);
+            //Url = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextViewUrl);
+            //Stock = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextViewStock);
+
             itemView.Click += (sender, e) => clickListener(new OnlineStoreRecyclerViewAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new OnlineStoreRecyclerViewAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }
