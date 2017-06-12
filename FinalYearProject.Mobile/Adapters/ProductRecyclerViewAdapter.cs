@@ -3,6 +3,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Support.V7.Widget;
 using FinalYearProject.Domain;
+using System.Collections.Generic;
 
 namespace FinalYearProject.Mobile.Adapters
 {
@@ -10,11 +11,11 @@ namespace FinalYearProject.Mobile.Adapters
     {
         public event EventHandler<ProductRecyclerViewAdapterClickEventArgs> ItemClick;
         public event EventHandler<ProductRecyclerViewAdapterClickEventArgs> ItemLongClick;
-        Product _stores;
+        List<OnlineStore> _onlineStores;
 
-        public ProductRecyclerViewAdapter(Product stores)
+        public ProductRecyclerViewAdapter(List<OnlineStore> onlineStores)
         {
-            _stores = stores;
+            _onlineStores = onlineStores;
         }
         
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -30,7 +31,7 @@ namespace FinalYearProject.Mobile.Adapters
         
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
-            var item = _stores;
+            var item = _onlineStores;
 
             // Replace the contents of the view with that element
             var holder = viewHolder as ProductRecyclerViewAdapterViewHolder;
@@ -60,7 +61,7 @@ namespace FinalYearProject.Mobile.Adapters
         {
             //Description = itemView.FindViewById<TextView>(Resource.Id.storeListRowTextView);
             //ModelId = itemView.FindViewById<TextView>(Resource.Id.store);
-            Ean = itemView.FindViewById<TextView>(Resource.Id.productRowEan);
+            //Ean = itemView.FindViewById<TextView>(Resource.Id.productRowEan);
             itemView.Click += (sender, e) => clickListener(new ProductRecyclerViewAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new ProductRecyclerViewAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }

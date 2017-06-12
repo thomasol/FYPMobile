@@ -23,7 +23,8 @@ namespace FinalYearProject.Mobile.Fragments
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         OnlineStoreRecyclerViewAdapter mAdapter;
-        Product _p;
+        List<OnlineStore> _onlineStores;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -43,8 +44,8 @@ namespace FinalYearProject.Mobile.Fragments
             mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
             // Plug the adapter into the RecyclerView:
             var myActivity = (MainActivity)Activity;
-            _p = myActivity.GetProduct();
-            mAdapter = new OnlineStoreRecyclerViewAdapter(_p);
+            _onlineStores = myActivity.GetOnlineStores();
+            mAdapter = new OnlineStoreRecyclerViewAdapter(_onlineStores);
             mAdapter.ItemClick += OnItemClick;
 
             mRecyclerView.SetAdapter(mAdapter);
@@ -54,10 +55,12 @@ namespace FinalYearProject.Mobile.Fragments
         private async void OnItemClick(object sender, OnlineStoreRecyclerViewAdapterClickEventArgs e)
         {
             int position = e.Position;
-            var onlineStore = _p.OnlineStores[position];
 
-            //string url = onlineStore.Url;
-            string url = "http://www.google.com";
+            //uncomment and change
+            //var onlineStore = _onlineStore.OnlineStores[position];
+            var onlineStore = _onlineStores;
+
+            string url = onlineStore[position].Url;
             var uri = Android.Net.Uri.Parse(url);
             var intent = new Intent(Intent.ActionView, uri);
             StartActivity(intent);
@@ -70,12 +73,10 @@ namespace FinalYearProject.Mobile.Fragments
             Guid _impressionGuid = ((MainActivity)Activity).GetOnlineImpressionGuid(position);
             clickEvent.ImpressionGuid = _impressionGuid;
             clickEvent.CreatedAt = DateTime.Now;
-            clickEvent.EAN = _p.Ean;
+            clickEvent.EAN = _onlineStores[position].Ean;
             clickEvent.Type = 2;
 
             await restService.SaveEvent(clickEvent);
-
-           
 
         }
     }

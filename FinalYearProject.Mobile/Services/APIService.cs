@@ -5,7 +5,8 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Android.Util;
-using Android.Gms.Auth.Api.SignIn;
+using System.Collections.Generic;
+using FinalYearProject.Domain;
 
 namespace FinalYearProject.Mobile.Services
 {
@@ -22,8 +23,8 @@ namespace FinalYearProject.Mobile.Services
         {
             httpClient = new HttpClient();
             //httpClient.MaxResponseContentBufferSize = 256000;
-            //httpClient.BaseAddress = new Uri("http://169.254.80.80:1234/");
-            httpClient.BaseAddress = new Uri("http://sample-env.7ap3ue2fyp.eu-west-1.elasticbeanstalk.com/");
+            httpClient.BaseAddress = new Uri("http://169.254.80.80:2112/");
+            //httpClient.BaseAddress = new Uri("http://sample-env.7ap3ue2fyp.eu-west-1.elasticbeanstalk.com/");
             return httpClient;
         }
 
@@ -49,11 +50,11 @@ namespace FinalYearProject.Mobile.Services
             return false;
         }
 
-        public async Task<string> SearchByEAN(string ean)
+        public async Task<List<OnlineStore>> SearchByEAN(string ean)
         {
-            string content = "";
+            var list = new List<OnlineStore>();
             dynamic fypSearchRequest = new JObject();
-            fypSearchRequest.ProductId = "555";
+            fypSearchRequest.ProductId = "05099206056213";
             var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
             string url = "api/Products/";
@@ -63,18 +64,16 @@ namespace FinalYearProject.Mobile.Services
                 var response = await httpClient.PutAsync(url, stringContent);
                 if (response.IsSuccessStatusCode)
                 {
-                    content = await response.Content.ReadAsStringAsync();
-                }
-                else
-                {
-                    content = "-1";
+                    string content = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<OnlineStore>>(content);
+                    return list;
                 }
             }
             catch (Exception ex)
             {
                 Log.Debug("SearchByEAN Error", ex.ToString());
             }
-            return content;
+            return list;
         }
 
         public async Task<bool> UserExists(string id)
@@ -93,10 +92,10 @@ namespace FinalYearProject.Mobile.Services
             }
         }
 
-        public async Task<string> CheckUser(GoogleSignInAccount _acct)
+        public async Task<string> CheckUser(string id)
         {
             string content = "";
-            string url = "api/User/" + _acct.Id;
+            string url = "api/User/" + id;
 
             try
             {

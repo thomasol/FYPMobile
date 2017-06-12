@@ -50,10 +50,10 @@ namespace FinalYearProject.Mobile.Fragments
 
             mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
             var myActivity = (MainActivity)Activity;
-            var p = myActivity.GetProduct();
+            var p = myActivity.GetOnlineStores();
+
             mAdapter = new ProductRecyclerViewAdapter(p);
             mAdapter.ItemClick += OnItemClick;
-
             mRecyclerView.SetAdapter(mAdapter);
             return v;
         }

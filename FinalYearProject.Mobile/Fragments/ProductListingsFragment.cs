@@ -31,7 +31,7 @@ namespace FinalYearProject.Mobile.Fragments
         private OnlineStoresFragment _onlineStoresFragment;
         private LocalStoresFragment _offlineStoresFragment;
 
-        Product _p;
+        List<OnlineStore> _onlineStores;
         List<Guid> _localImpressionsGuid = new List<Guid>();
         List<Guid> _onlineImpressionsGuid = new List<Guid>();
 
@@ -41,8 +41,8 @@ namespace FinalYearProject.Mobile.Fragments
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            _p = ((MainActivity)Activity).GetProduct();
-            await CreateImpressionEvent();
+            _onlineStores = ((MainActivity)Activity).GetOnlineStores();
+            //await CreateImpressionEvent();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -50,6 +50,7 @@ namespace FinalYearProject.Mobile.Fragments
             View v = inflater.Inflate(Resource.Layout.ProductListings, container, false);
 
             viewPager = v.FindViewById<ViewPager>(Resource.Id.viewpager);
+            viewPager.OffscreenPageLimit = 3;
             setupViewPager(viewPager);
 
             tabLayout = v.FindViewById<TabLayout>(Resource.Id.sliding_tabs);
@@ -81,7 +82,7 @@ namespace FinalYearProject.Mobile.Fragments
         public void setupViewPager(ViewPager viewPager)
         {
             InitialiseFragments();
-            _adapter = new ViewPagerAdapter(Activity.SupportFragmentManager);
+            _adapter = new ViewPagerAdapter(ChildFragmentManager);
             _adapter.addFragment(_searchResultsFragment, "Search Results");
             _adapter.addFragment(_onlineStoresFragment, "Online");
             _adapter.addFragment(_offlineStoresFragment, "Offline");
@@ -102,24 +103,26 @@ namespace FinalYearProject.Mobile.Fragments
                 impressionEvent.CreatedAt = DateTime.Now;
                 impressionEvent.Lon = pos.Longitude;
                 impressionEvent.Lat = pos.Latitude;
-                impressionEvent.EAN = _p.Ean;
+                impressionEvent.EAN = _onlineStores[0].Ean;
                 impressionEvent.Type = 1;
 
-                for (int i = 0; i < _p.LocalStores.Count; i++)
-                {
-                    var impressionGuid = Guid.NewGuid();
-                    impressionEvent.ImpressionGuid = impressionGuid;
-                    impressionEvent.Description = "Search Event Local Store";
-                    impressionEvent.StoreCode = _p.LocalStores[i].StoreCode;
-                    _localImpressionsGuid.Add(impressionGuid);
-                    await restService.SaveEvent(impressionEvent);
-                }
-                for (int i = 0; i < _p.OnlineStores.Count; i++)
+                //uncomment change to local
+                //for (int i = 0; i < _onlineStore.LocalStores.Count; i++)
+                //{
+                //    var impressionGuid = Guid.NewGuid();
+                //    impressionEvent.ImpressionGuid = impressionGuid;
+                //    impressionEvent.Description = "Search Event Local Store";
+                //    impressionEvent.StoreCode = _onlineStore.LocalStores[i].StoreCode;
+                //    _localImpressionsGuid.Add(impressionGuid);
+                //    await restService.SaveEvent(impressionEvent);
+                //}
+
+                for (int i = 0; i < _onlineStores.Count; i++)
                 {
                     var impressionGuid = Guid.NewGuid();
                     impressionEvent.ImpressionGuid = impressionGuid;
                     impressionEvent.Description = "Search Event Online Store";
-                    impressionEvent.Url = _p.OnlineStores[i].Url;
+                    impressionEvent.Url = _onlineStores[i].Url;
                     _onlineImpressionsGuid.Add(impressionGuid);
                     await restService.SaveEvent(impressionEvent);
                 }

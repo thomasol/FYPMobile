@@ -16,6 +16,8 @@
   <color name="blue_grey_800">#37474F</color>
   <color name="blue_grey_900">#263238</color>
   <color name="window_background">#F5F5F5</color>
+  <color name="pink">#FFC0CB</color>
+  <color name="indigo">#4B0082</color>
   <!--
   <color name="primary">#2196F3</color>
   <color name="primaryDark">#1976D2</color>-->

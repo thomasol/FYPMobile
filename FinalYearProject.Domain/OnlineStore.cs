@@ -16,6 +16,14 @@ namespace FinalYearProject.Domain
         public string Stock { get; set; }
         public double? Price { get; set; }
         public string Url { get; set; }
-        public int Id { get; set; }
+        public string Brand { get; set; }
+        public int BrandId { get; set; }
+        public string BrandLogo { get; set; }
+        public string ImageUrl { get; set; }
+        public string MPN { get; set; }
+        public string Retailer { get; set; }
+        public string RetailerLogo { get; set; }
+        public string Sku { get; set; }
+        public string UPC { get; set; }
     }
 }

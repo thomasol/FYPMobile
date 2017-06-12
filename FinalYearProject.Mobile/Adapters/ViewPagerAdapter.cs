@@ -20,7 +20,6 @@ namespace FinalYearProject.Mobile.Adapters
 
         public ViewPagerAdapter(Android.Support.V4.App.FragmentManager manager) : base(manager)
         {
-            //base.OnCreate(manager);
         }
 
         public override int Count

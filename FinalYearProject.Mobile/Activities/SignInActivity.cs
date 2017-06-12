@@ -17,6 +17,7 @@ using Android.Util;
 using Android.Gms.Location;
 using FinalYearProject.Mobile.Services;
 using FinalYearProject.Mobile.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace FinalYearProject.Mobile.Activities
 {
@@ -97,9 +98,6 @@ namespace FinalYearProject.Mobile.Activities
             {
                 // Signed in successfully, show authenticated UI.
                 _acct = result.SignInAccount;
-                //var id = _acct.Email;
-                //IAPIService serv = new APIService();
-                //var ans = await serv.CheckUser(_acct);
                 _mStatusTextView.Text = Resource.String.signed_n_fmt + _acct.DisplayName;
                 UpdateUI(true);
             }

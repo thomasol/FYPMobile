@@ -7,6 +7,7 @@ using FinalYearProject.Mobile.Activities;
 using FinalYearProject.Domain;
 using FinalYearProject.Mobile.Services;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -15,7 +16,10 @@ namespace FinalYearProject.Mobile.Fragments
         RecyclerView mRecyclerView;
         RecyclerView.LayoutManager mLayoutManager;
         LocalStoreRecyclerViewAdapter mAdapter;
-        Product _p;
+
+        //change to local
+        List<OnlineStore> _onlineStore;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,9 +37,9 @@ namespace FinalYearProject.Mobile.Fragments
             mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
             // Plug the adapter into the RecyclerView:
             var myActivity = (MainActivity)Activity;
-            _p = myActivity.GetProduct();
-            mAdapter = new LocalStoreRecyclerViewAdapter(_p.LocalStores);
-            mAdapter.ItemClick += OnItemClick;
+            _onlineStore = myActivity.GetOnlineStores();
+            //mAdapter = new LocalStoreRecyclerViewAdapter(_onlineStore.LocalStores);
+            //mAdapter.ItemClick += OnItemClick;
 
             mRecyclerView.SetAdapter(mAdapter);
             return v;
@@ -44,14 +48,17 @@ namespace FinalYearProject.Mobile.Fragments
         private async void OnItemClick(object sender, LocalStoreRecyclerViewAdapterClickEventArgs e)
         {
             int position = e.Position;
-            var store = _p.LocalStores[position];
+
+            //uncomment change this
+            //var store = _onlineStore.LocalStores[position];
+            var store = _onlineStore;
 
             IAPIService restService = new APIService();
             dynamic clickEvent = new JObject();
 
             var _clickGuid = Guid.NewGuid();
             clickEvent.ClickGuid = _clickGuid;
-            clickEvent.StoreCode = store.StoreCode;
+            clickEvent.StoreCode = store[position].StoreCode;
             Guid _impressionGuid = ((MainActivity)Activity).GetLocalImpressionGuid(position);
             clickEvent.ImpressionGuid = _impressionGuid;
             clickEvent.CreatedAt = DateTime.Now;

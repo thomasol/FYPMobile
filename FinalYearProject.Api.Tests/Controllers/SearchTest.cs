@@ -51,13 +51,8 @@ namespace FinalYearProject.Api.Tests.Controllers
         [TestMethod]
         public void Put()
         {
-            // Arrange
-            ValuesController controller = new ValuesController();
-
-            // Act
-            controller.Put(5, "value");
-
-            // Assert
+            var onlinesearch = new Search.ProductSearchRepository("user", "fyp");
+            onlinesearch.CreateMap();
         }
 
         [TestMethod]

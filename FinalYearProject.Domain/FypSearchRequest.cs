@@ -10,6 +10,7 @@ namespace FinalYearProject.Domain
     {
         public string UserName { get; set; }
         public string ProductId { get; set; }
+        public string SearchTerm { get; set; }
         public int Distance { get; set; }
         public string Lat { get; set; }
         public string Lon { get; set; }

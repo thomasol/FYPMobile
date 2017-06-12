@@ -11,19 +11,20 @@ namespace FinalYearProject.Api.Controllers
 {
     public class UserController : ApiController
     {
-        public User Get(string id)
+        private string _indexName = "fyp";
+        public string Get(string id)
         {
-            var search = new SearchRepository<User>("user", "fyp");
-            var result = search.GetById(1);
+            var search = new SearchRepository<User>("user", _indexName);
+            var result = search.GetById(id);
 
-            return result.Documents.FirstOrDefault();
+            return result.Documents.FirstOrDefault().Id;
         }
 
         public void Post([FromBody]User user)
         {
             // Arrange
-            var search = new SearchRepository<User>("user", "fyp");
-            search.AddMappings(user);
+            var search = new SearchRepository<User>("user", _indexName);
+            //search.AddMappings(user);
 
             // Act
             search.Add(user);
@@ -32,7 +33,7 @@ namespace FinalYearProject.Api.Controllers
         public void Put([FromBody]User user)
         {
             // Arrange
-            var search = new SearchRepository<User>("user", "fyp");
+            var search = new SearchRepository<User>("user", _indexName);
             search.AddMappings(user);
 
             // Act
@@ -40,7 +41,7 @@ namespace FinalYearProject.Api.Controllers
         }
         public void Delete(int id)
         {
-            var search = new SearchRepository<User>("user", "fyp");
+            var search = new SearchRepository<User>("user", _indexName);
             var user = search.GetById(id);
             //search.Delete(user.);
         }

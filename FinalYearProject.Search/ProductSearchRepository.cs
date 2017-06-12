@@ -11,16 +11,14 @@ namespace FinalYearProject.Search
         {
         }
 
-        public ISearchResponse<Product> SearchLocations(FypSearchRequest search)
+        public ISearchResponse<OnlineStore> SearchLocationsByEan(FypSearchRequest search)
         {
-            QueryContainer productIdQuery = new QueryContainer();
-            //QueryContainer storeQuery = new QueryContainer();
-            //QueryContainer geoQuery = new QueryContainer();
+            QueryContainer eanQuery = new QueryContainer();
 
             if (search.ProductId != null)
             {
-                productIdQuery =
-                    Query<Product>.Bool(
+                eanQuery =
+                    Query<OnlineStore>.Bool(
                         x =>
                         x.Must(m => m.MatchPhrase(
                                 descriptor => descriptor.Field("ean").Query(search.ProductId))));
@@ -28,11 +26,41 @@ namespace FinalYearProject.Search
             
 
             var response =
-                ElasticClient.Search<Product>(
+                ElasticClient.Search<OnlineStore>(
                     s =>
                     s.Type(Type)
                         .Query(
-                            q => productIdQuery)
+                            q => eanQuery)
+                        .From(search.Page)
+                        .Size(search.Size)
+                        );
+
+            return response;
+        }
+
+        public ISearchResponse<OnlineStore> SearchLocationsBySearchTerm(FypSearchRequest search)
+        {
+            QueryContainer searchTermQuery = new QueryContainer();
+            //QueryContainer storeQuery = new QueryContainer();
+            //QueryContainer geoQuery = new QueryContainer();
+
+            if (search.SearchTerm != null)
+            {
+                searchTermQuery =
+                    Query<OnlineStore>.Bool(
+                        x =>
+                        x.Must(m => m.MatchPhrase(
+                                descriptor => descriptor.Field("description").Field("retailer").Query(search.SearchTerm))
+                                ));
+            }
+
+
+            var response =
+                ElasticClient.Search<OnlineStore>(
+                    s =>
+                    s.Type(Type)
+                        .Query(
+                            q => searchTermQuery)
                         .From(search.Page)
                         .Size(search.Size)
                         );
@@ -42,9 +70,7 @@ namespace FinalYearProject.Search
 
         public void CreateMap()
         {
-            var res = ElasticClient.Map<OnlineStore>(x => x.Index(Index).AutoMap(4)
-
-            );
+            var res = ElasticClient.Map<Product>(x => x.Index(Index).AutoMap(4));
         }
 
         public void CreateIndex()

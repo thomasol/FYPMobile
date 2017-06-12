@@ -21,8 +21,8 @@
           android:textAppearance="?android:attr/textAppearanceLarge"
           android:singleLine="true"
           android:textAllCaps="true"
-          android:text="Search Details"
-          android:id="@+id/productRowEan"
+          android:text="Product Details"
+          android:id="@+id/productRowDetails"
           android:layout_gravity="center_horizontal"
           android:layout_marginLeft="4dp" />
     </LinearLayout>

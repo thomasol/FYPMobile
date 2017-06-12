@@ -47,7 +47,7 @@
             android:layout_below="@+id/profile_layout"
             android:layout_marginTop="5dp"
             android:orientation="vertical">
-            <android.support.design.widget.TextInputEditText
+            <TextView
                 android:id="@+id/accountEmail"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -57,19 +57,6 @@
                 android:elevation="4dp"
                 android:padding="20dp"
                 android:inputType="none" />
-
-          <!--<android.support.design.widget.TextInputEditText
-                android:id="@+id/accountGender"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_marginBottom="3dp"
-                android:layout_marginTop="3dp"
-                android:background="#fff"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:padding="20dp"
-                android:text="Gender: " />-->
           <android.support.design.widget.TextInputLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
@@ -107,6 +94,7 @@
              android:layout_width="wrap_content"
              android:layout_marginBottom="3dp"
              android:layout_marginTop="3dp"
+             android:theme="@style/MyButton"
              android:text="@string/submit" />
         </LinearLayout>
     </RelativeLayout>

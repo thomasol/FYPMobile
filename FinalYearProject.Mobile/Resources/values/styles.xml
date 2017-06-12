@@ -88,4 +88,8 @@
         <item name="tabSelectedTextColor">#212121</item>
         <!-- color of text when tabs be selected-->
     </style>
+  <style name="MyButton" parent="Theme.AppCompat.Light">
+    <item name="colorControlHighlight">@color/indigo</item>
+    <item name="colorButtonNormal">@color/pink</item>
+  </style>
 </resources>

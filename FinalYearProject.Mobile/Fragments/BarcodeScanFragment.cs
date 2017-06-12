@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using FinalYearProject.Domain;
 using FinalYearProject.Mobile.Activities;
 using Android.Util;
+using System.Collections.Generic;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -80,12 +81,12 @@ namespace FinalYearProject.Mobile.Fragments
         private async Task DoLookup(string text)
         {
             IAPIService apiService = new APIService();
-            text = "555";
+            text = "05099206056213";
             ShowProgressDialog();
 
-            var productString = await apiService.SearchByEAN(text);
+            var onlineStores = await apiService.SearchByEAN(text);
 
-            SetProduct(productString);
+            SetOnlineStores(onlineStores);
             
             Fragment frag = ProductListingsFragment.NewInstance();
             HideProgressDialog();
@@ -96,16 +97,14 @@ namespace FinalYearProject.Mobile.Fragments
             .Commit();
         }
 
-        private void SetProduct(string productString)
+        private void SetOnlineStores(List<OnlineStore> _onlineStores)
         {
             try
             {
-                if (productString != "Data not available")
+                if (_onlineStores != null)
                 {
-                    JObject jsonResponse = JObject.Parse(productString);
-                    Product _p = jsonResponse.ToObject<Product>();
                     var myActivity = (MainActivity)Activity;
-                    myActivity.SetProduct(_p);
+                    myActivity.SetOnlineStores(_onlineStores);
                 }
 
             }
@@ -114,6 +113,25 @@ namespace FinalYearProject.Mobile.Fragments
                 Log.Debug("ProductString initialisation Fail", ex.ToString());
             }
         }
+
+        //private void SetProduct(string productString)
+        //{
+        //    try
+        //    {
+        //        if (productString != "Data not available")
+        //        {
+        //            JObject jsonResponse = JObject.Parse(productString);
+        //            Product _p = jsonResponse.ToObject<Product>();
+        //            var myActivity = (MainActivity)Activity;
+        //            myActivity.SetProduct(_p);
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Debug("ProductString initialisation Fail", ex.ToString());
+        //    }
+        //}
 
         private void ShowProgressDialog()
         {

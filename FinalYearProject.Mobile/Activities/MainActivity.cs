@@ -14,6 +14,8 @@ using Android.Support.V4.View;
 using FinalYearProject.Mobile.Adapters;
 using Android.Views;
 using System.Collections.Generic;
+using FinalYearProject.Mobile.Services;
+using Newtonsoft.Json.Linq;
 
 namespace FinalYearProject.Mobile.Activities
 {
@@ -21,7 +23,7 @@ namespace FinalYearProject.Mobile.Activities
     public class MainActivity : BaseActivity, GoogleApiClient.IOnConnectionFailedListener
     {
         GoogleSignInAccount _gsc;
-        Product _p;
+        List<OnlineStore> _onlineStores;
 
         private TabLayout tabLayout;
         private ViewPager viewPager;
@@ -55,14 +57,27 @@ namespace FinalYearProject.Mobile.Activities
             }
         }
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(LayoutResource);
             base.OnCreateDrawer(savedInstanceState);
-            
+
             _gsc = ((MainApplication)Application).GSC;
-            
+
+            GoogleSignInAccount _acct = ((MainApplication)this.Application).GSC;
+
+            string id = _acct.Id;
+            IAPIService serv = new APIService();
+            var ans = await serv.CheckUser(id);
+            if (ans == "-1" || ans == "null" || ans == null)
+            {
+                dynamic user = new JObject();
+                user.email = _acct.Email;
+                user.id = _acct.Id;
+                user.name = _acct.DisplayName;
+                await serv.AddUser(user);
+            }
         }
 
         private async void GetLocation()
@@ -103,14 +118,14 @@ namespace FinalYearProject.Mobile.Activities
             base.OnDestroy();
         }
         
-        public void SetProduct(Product productString)
+        public void SetOnlineStores(List<OnlineStore> onlineStoresString)
         {
-            _p = productString;
+            _onlineStores = onlineStoresString;
         }
 
-        public Product GetProduct()
+        public List<OnlineStore> GetOnlineStores()
         {
-            return _p;
+            return _onlineStores;
         }
 
         public void SetLocalImpressionsGuid(List<Guid> localImpressionsGuid)

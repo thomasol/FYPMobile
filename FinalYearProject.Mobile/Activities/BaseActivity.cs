@@ -18,6 +18,8 @@ using Fragment = Android.Support.V4.App.Fragment;
 using Android.Graphics;
 using System.Net;
 using static Android.Graphics.PorterDuff;
+using FinalYearProject.Mobile.Services;
+using Newtonsoft.Json.Linq;
 
 namespace FinalYearProject.Mobile.Activities
 {
@@ -94,7 +96,7 @@ namespace FinalYearProject.Mobile.Activities
             }
             #endregion
 
-            if(_bitmap == null)
+            if (_bitmap == null)
             {
                 _acct = ((MainApplication)this.Application).GSC;
 

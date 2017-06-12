@@ -11,17 +11,22 @@ namespace FinalYearProject.Api.Controllers
 {
     public class EventsController : ApiController
     {
+        private string _indexName = "fyp";
+
+        //change this
         // GET: api/Events
-        public string Get()
+        public Nest.ISearchResponse<Event> Get()
         {
-            return "-1";
+            var esRepo = new SearchRepository<Event>("event", _indexName);
+            var res = esRepo.GetAll(0, 100);
+            return res;
         }
         
 
         // POST: api/Events
         public void Post([FromBody]Event value)
         {
-            var esRepo = new SearchRepository<Event>("event", "fyp");
+            var esRepo = new SearchRepository<Event>("event", _indexName);
             var res= esRepo.Add(value);
 
         }

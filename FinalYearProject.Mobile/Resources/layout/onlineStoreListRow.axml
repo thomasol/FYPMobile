@@ -22,7 +22,7 @@
           android:singleLine="true"
           android:textAllCaps="true"
           android:text="Search Details"
-          android:id="@+id/storeListRowTextViewDetails"
+          android:id="@+id/onlineStoreListRowTextViewDescription"
           android:layout_gravity="center_horizontal"
           android:layout_marginLeft="4dp" />
     <LinearLayout
@@ -37,7 +37,7 @@
           android:textColor="#333333"
           android:singleLine="true"
           android:text="Caption"
-          android:id="@+id/storeListRowTextView"
+          android:id="@+id/onlineStoreListRowTextViewPrice"
           android:layout_gravity="center_horizontal"
           android:layout_marginLeft="4dp" />
       <TextView
@@ -47,7 +47,47 @@
           android:textColor="#333333"
           android:singleLine="true"
           android:text="Caption"
-          android:id="@+id/storeListRowTextViewStoreType"
+          android:id="@+id/onlineStoreListRowTextViewStoreCode"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="#333333"
+          android:singleLine="true"
+          android:text="Caption"
+          android:id="@+id/onlineStoreListRowTextViewName"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="#333333"
+          android:singleLine="true"
+          android:text="Caption"
+          android:id="@+id/onlineStoreListRowTextViewStock"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" />
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="#333333"
+          android:singleLine="true"
+          android:text="Caption"
+          android:id="@+id/onlineStoreListRowImageViewBrandLogo"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="#333333"
+          android:singleLine="true"
+          android:text="Caption"
+          android:id="@+id/onlineStoreListRowTextViewUrl"
           android:layout_gravity="center_horizontal"
           android:layout_marginLeft="4dp" />
     </LinearLayout>

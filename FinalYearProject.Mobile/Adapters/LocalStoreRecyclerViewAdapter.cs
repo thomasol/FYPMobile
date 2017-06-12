@@ -11,9 +11,12 @@ namespace FinalYearProject.Mobile.Adapters
     {
         public event EventHandler<LocalStoreRecyclerViewAdapterClickEventArgs> ItemClick;
         public event EventHandler<LocalStoreRecyclerViewAdapterClickEventArgs> ItemLongClick;
-        List<LocalStore> _stores;
+        //change to local stores
 
-        public LocalStoreRecyclerViewAdapter(List<LocalStore> stores)
+        //List<LocalStore> _stores;
+        List<OnlineStore> _stores;
+
+        public LocalStoreRecyclerViewAdapter(List<OnlineStore> stores)
         {
             _stores = stores;
         }
@@ -39,7 +42,7 @@ namespace FinalYearProject.Mobile.Adapters
             holder.Description.Text = item.Description.ToString();
             holder.Name.Text = item.Name.ToString();
             holder.Price.Text = "€" + item.Price.ToString();
-            holder.Address.Text = item.Address.ToString();
+            //holder.Address.Text = item.Address.ToString();
         }
 
         public override int ItemCount => _stores.Count;
@@ -66,11 +69,10 @@ namespace FinalYearProject.Mobile.Adapters
         {
             Description = itemView.FindViewById<TextView>(Resource.Id.localStoreListRowTextViewDescription);
             Name = itemView.FindViewById<TextView>(Resource.Id.localStoreName);
-            Address = itemView.FindViewById<TextView>(Resource.Id.localStoreListRowTextViewAddress);
+            //Address = itemView.FindViewById<TextView>(Resource.Id.localStoreListRowTextViewAddress);
             Price = itemView.FindViewById<TextView>(Resource.Id.localStoreListRowTextViewPrice);
             //Stock = itemView.FindViewById<TextView>(Resource.Id.localStoreListRowTextViewStock);
             //Gps = itemView.FindViewById<TextView>(Resource.Id.localStoreListRowTextViewGps);
-
             itemView.Click += (sender, e) => clickListener(new LocalStoreRecyclerViewAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
             itemView.LongClick += (sender, e) => longClickListener(new LocalStoreRecyclerViewAdapterClickEventArgs { View = itemView, Position = AdapterPosition });
         }
