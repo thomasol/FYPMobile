@@ -38,6 +38,32 @@ namespace FinalYearProject.Search
             return response;
         }
 
+        public ISearchResponse<OfflineStore> SearchLocationsByEanOffline(FypSearchRequest search)
+        {
+            QueryContainer eanQuery = new QueryContainer();
+
+            if (search.ProductId != null)
+            {
+                eanQuery =
+                    Query<OfflineStore>.Bool(
+                        x =>
+                        x.Must(m => m.MatchPhrase(
+                                descriptor => descriptor.Field("ean").Query(search.ProductId))));
+            }
+
+            var response =
+                ElasticClient.Search<OfflineStore>(
+                    s =>
+                    s.Type(Type)
+                        .Query(
+                            q => eanQuery)
+                        .From(search.Page)
+                        .Size(search.Size)
+                        );
+
+            return response;
+        }
+
         public ISearchResponse<OnlineStore> SearchLocationsBySearchTerm(FypSearchRequest search)
         {
             QueryContainer searchTermQuery = new QueryContainer();
@@ -70,7 +96,7 @@ namespace FinalYearProject.Search
 
         public void CreateMap()
         {
-            var res = ElasticClient.Map<Product>(x => x.Index(Index).AutoMap(4));
+            var res = ElasticClient.Map<Domain.Event>(x => x.Index(Index).AutoMap(4));
         }
 
         public void CreateIndex()

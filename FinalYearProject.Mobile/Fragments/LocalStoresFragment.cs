@@ -17,8 +17,7 @@ namespace FinalYearProject.Mobile.Fragments
         RecyclerView.LayoutManager mLayoutManager;
         LocalStoreRecyclerViewAdapter mAdapter;
 
-        //change to local
-        List<OnlineStore> _onlineStore;
+        List<OfflineStore> _offlineStore;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,9 +36,9 @@ namespace FinalYearProject.Mobile.Fragments
             mRecyclerView.SetItemAnimator(new DefaultItemAnimator());
             // Plug the adapter into the RecyclerView:
             var myActivity = (MainActivity)Activity;
-            _onlineStore = myActivity.GetOnlineStores();
-            //mAdapter = new LocalStoreRecyclerViewAdapter(_onlineStore.LocalStores);
-            //mAdapter.ItemClick += OnItemClick;
+            _offlineStore = myActivity.GetOfflineStores();
+            mAdapter = new LocalStoreRecyclerViewAdapter(_offlineStore);
+            mAdapter.ItemClick += OnItemClick;
 
             mRecyclerView.SetAdapter(mAdapter);
             return v;
@@ -48,18 +47,15 @@ namespace FinalYearProject.Mobile.Fragments
         private async void OnItemClick(object sender, LocalStoreRecyclerViewAdapterClickEventArgs e)
         {
             int position = e.Position;
-
-            //uncomment change this
-            //var store = _onlineStore.LocalStores[position];
-            var store = _onlineStore;
+            
+            var store = _offlineStore[position];
 
             IAPIService restService = new APIService();
             dynamic clickEvent = new JObject();
 
             var _clickGuid = Guid.NewGuid();
             clickEvent.ClickGuid = _clickGuid;
-            clickEvent.StoreCode = store[position].StoreCode;
-            Guid _impressionGuid = ((MainActivity)Activity).GetLocalImpressionGuid(position);
+            Guid _impressionGuid = ((MainActivity)Activity).GetOfflineImpressionGuid(position);
             clickEvent.ImpressionGuid = _impressionGuid;
             clickEvent.CreatedAt = DateTime.Now;
             clickEvent.Type = 2;

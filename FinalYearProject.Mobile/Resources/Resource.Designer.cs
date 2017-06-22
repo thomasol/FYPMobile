@@ -2844,8 +2844,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0047
 			public const int action_mode_close_button = 2131361863;
 			
-			// aapt resource value: 0x7f0a00db
-			public const int action_share = 2131362011;
+			// aapt resource value: 0x7f0a00df
+			public const int action_share = 2131362015;
 			
 			// aapt resource value: 0x7f0a0048
 			public const int activity_chooser_view_content = 2131361864;
@@ -2904,8 +2904,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a002a
 			public const int collapseActionView = 2131361834;
 			
-			// aapt resource value: 0x7f0a00da
-			public const int contentFrame = 2131362010;
+			// aapt resource value: 0x7f0a00de
+			public const int contentFrame = 2131362014;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int contentPanel = 2131361877;
@@ -3042,14 +3042,26 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a004c
 			public const int list_item = 2131361868;
 			
-			// aapt resource value: 0x7f0a00c3
-			public const int localStoreListRowTextViewAddress = 2131361987;
+			// aapt resource value: 0x7f0a00c6
+			public const int localStoreListRowImageViewRetailerLogo = 2131361990;
 			
-			// aapt resource value: 0x7f0a00c5
-			public const int localStoreListRowTextViewDescription = 2131361989;
+			// aapt resource value: 0x7f0a00c3
+			public const int localStoreListRowTextViewAddress1 = 2131361987;
 			
 			// aapt resource value: 0x7f0a00c4
-			public const int localStoreListRowTextViewPrice = 2131361988;
+			public const int localStoreListRowTextViewAddress2 = 2131361988;
+			
+			// aapt resource value: 0x7f0a00c5
+			public const int localStoreListRowTextViewAddress3 = 2131361989;
+			
+			// aapt resource value: 0x7f0a00c9
+			public const int localStoreListRowTextViewDescription = 2131361993;
+			
+			// aapt resource value: 0x7f0a00c8
+			public const int localStoreListRowTextViewPrice = 2131361992;
+			
+			// aapt resource value: 0x7f0a00c7
+			public const int localStoreListRowTextViewStock = 2131361991;
 			
 			// aapt resource value: 0x7f0a00c2
 			public const int localStoreName = 2131361986;
@@ -3141,14 +3153,14 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0021
 			public const int multiply = 2131361825;
 			
-			// aapt resource value: 0x7f0a00dd
-			public const int navAccount = 2131362013;
+			// aapt resource value: 0x7f0a00e1
+			public const int navAccount = 2131362017;
 			
-			// aapt resource value: 0x7f0a00dc
-			public const int navBarcodeSearch = 2131362012;
+			// aapt resource value: 0x7f0a00e0
+			public const int navBarcodeSearch = 2131362016;
 			
-			// aapt resource value: 0x7f0a00de
-			public const int navSignOut = 2131362014;
+			// aapt resource value: 0x7f0a00e2
+			public const int navSignOut = 2131362018;
 			
 			// aapt resource value: 0x7f0a0097
 			public const int nav_view = 2131361943;
@@ -3168,26 +3180,26 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a000d
 			public const int normal = 2131361805;
 			
-			// aapt resource value: 0x7f0a00cb
-			public const int onlineStoreListRowImageViewBrandLogo = 2131361995;
-			
-			// aapt resource value: 0x7f0a00c6
-			public const int onlineStoreListRowTextViewDescription = 2131361990;
-			
-			// aapt resource value: 0x7f0a00c9
-			public const int onlineStoreListRowTextViewName = 2131361993;
-			
-			// aapt resource value: 0x7f0a00c7
-			public const int onlineStoreListRowTextViewPrice = 2131361991;
+			// aapt resource value: 0x7f0a00cf
+			public const int onlineStoreListRowImageViewBrandLogo = 2131361999;
 			
 			// aapt resource value: 0x7f0a00ca
-			public const int onlineStoreListRowTextViewStock = 2131361994;
+			public const int onlineStoreListRowTextViewDescription = 2131361994;
 			
-			// aapt resource value: 0x7f0a00c8
-			public const int onlineStoreListRowTextViewStoreCode = 2131361992;
+			// aapt resource value: 0x7f0a00cd
+			public const int onlineStoreListRowTextViewName = 2131361997;
+			
+			// aapt resource value: 0x7f0a00cb
+			public const int onlineStoreListRowTextViewPrice = 2131361995;
+			
+			// aapt resource value: 0x7f0a00ce
+			public const int onlineStoreListRowTextViewStock = 2131361998;
 			
 			// aapt resource value: 0x7f0a00cc
-			public const int onlineStoreListRowTextViewUrl = 2131361996;
+			public const int onlineStoreListRowTextViewStoreCode = 2131361996;
+			
+			// aapt resource value: 0x7f0a00d0
+			public const int onlineStoreListRowTextViewUrl = 2131362000;
 			
 			// aapt resource value: 0x7f0a0033
 			public const int parallax = 2131361843;
@@ -3198,32 +3210,32 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0034
 			public const int pin = 2131361844;
 			
-			// aapt resource value: 0x7f0a00d0
-			public const int place_autocomplete_clear_button = 2131362000;
-			
-			// aapt resource value: 0x7f0a00d2
-			public const int place_autocomplete_powered_by_google = 2131362002;
-			
 			// aapt resource value: 0x7f0a00d4
-			public const int place_autocomplete_prediction_primary_text = 2131362004;
+			public const int place_autocomplete_clear_button = 2131362004;
 			
-			// aapt resource value: 0x7f0a00d5
-			public const int place_autocomplete_prediction_secondary_text = 2131362005;
-			
-			// aapt resource value: 0x7f0a00d3
-			public const int place_autocomplete_progress = 2131362003;
-			
-			// aapt resource value: 0x7f0a00ce
-			public const int place_autocomplete_search_button = 2131361998;
-			
-			// aapt resource value: 0x7f0a00cf
-			public const int place_autocomplete_search_input = 2131361999;
-			
-			// aapt resource value: 0x7f0a00d1
-			public const int place_autocomplete_separator = 2131362001;
+			// aapt resource value: 0x7f0a00d6
+			public const int place_autocomplete_powered_by_google = 2131362006;
 			
 			// aapt resource value: 0x7f0a00d8
-			public const int productRowDetails = 2131362008;
+			public const int place_autocomplete_prediction_primary_text = 2131362008;
+			
+			// aapt resource value: 0x7f0a00d9
+			public const int place_autocomplete_prediction_secondary_text = 2131362009;
+			
+			// aapt resource value: 0x7f0a00d7
+			public const int place_autocomplete_progress = 2131362007;
+			
+			// aapt resource value: 0x7f0a00d2
+			public const int place_autocomplete_search_button = 2131362002;
+			
+			// aapt resource value: 0x7f0a00d3
+			public const int place_autocomplete_search_input = 2131362003;
+			
+			// aapt resource value: 0x7f0a00d5
+			public const int place_autocomplete_separator = 2131362005;
+			
+			// aapt resource value: 0x7f0a00dc
+			public const int productRowDetails = 2131362012;
 			
 			// aapt resource value: 0x7f0a0076
 			public const int profile_layout = 2131361910;
@@ -3249,11 +3261,11 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0092
 			public const int recyclerViewOfflineStores = 2131361938;
 			
-			// aapt resource value: 0x7f0a00cd
-			public const int recyclerViewOnlineStores = 2131361997;
+			// aapt resource value: 0x7f0a00d1
+			public const int recyclerViewOnlineStores = 2131362001;
 			
-			// aapt resource value: 0x7f0a00d9
-			public const int recyclerViewStoreList = 2131362009;
+			// aapt resource value: 0x7f0a00dd
+			public const int recyclerViewStoreList = 2131362013;
 			
 			// aapt resource value: 0x7f0a003b
 			public const int right = 2131361851;
@@ -3333,8 +3345,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0086
 			public const int sign_out_button = 2131361926;
 			
-			// aapt resource value: 0x7f0a00d6
-			public const int sliding_tabs = 2131362006;
+			// aapt resource value: 0x7f0a00da
+			public const int sliding_tabs = 2131362010;
 			
 			// aapt resource value: 0x7f0a008c
 			public const int snackbar_action = 2131361932;
@@ -3372,8 +3384,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a00b7
 			public const int status_bar_latest_event_content = 2131361975;
 			
-			// aapt resource value: 0x7f0a00df
-			public const int storeListTest = 2131362015;
+			// aapt resource value: 0x7f0a00e3
+			public const int storeListTest = 2131362019;
 			
 			// aapt resource value: 0x7f0a007d
 			public const int submit = 2131361917;
@@ -3447,8 +3459,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a000a
 			public const int view_offset_helper = 2131361802;
 			
-			// aapt resource value: 0x7f0a00d7
-			public const int viewpager = 2131362007;
+			// aapt resource value: 0x7f0a00db
+			public const int viewpager = 2131362011;
 			
 			// aapt resource value: 0x7f0a00a9
 			public const int volume_item_container = 2131361961;

@@ -16,5 +16,6 @@ namespace FinalYearProject.Domain
         public string Lon { get; set; }
         public int Size { get; set; }
         public int Page { get; set; }
+        public string Mapping { get; set; }
     }
 }

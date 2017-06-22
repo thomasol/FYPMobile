@@ -24,7 +24,7 @@ namespace FinalYearProject.Mobile.Activities
     {
         GoogleSignInAccount _gsc;
         List<OnlineStore> _onlineStores;
-
+        List<OfflineStore> _offlineStores;
         private TabLayout tabLayout;
         private ViewPager viewPager;
 
@@ -40,7 +40,7 @@ namespace FinalYearProject.Mobile.Activities
         private const string TAG = "MainActivity";
 
         private List<Guid> _onlineImpressionsGuid;
-        private List<Guid> _localImpressionsGuid;
+        private List<Guid> _offlineImpressionsGuid;
 
         readonly string[] Permissions =
             {
@@ -70,14 +70,17 @@ namespace FinalYearProject.Mobile.Activities
             string id = _acct.Id;
             IAPIService serv = new APIService();
             var ans = await serv.CheckUser(id);
-            if (ans == "-1" || ans == "null" || ans == null)
+            if (ans == "\"-1\"" || ans == "null" || ans == null)
             {
                 dynamic user = new JObject();
                 user.email = _acct.Email;
                 user.id = _acct.Id;
                 user.name = _acct.DisplayName;
+                user.gender = "other";
+                user.age = 0;
                 await serv.AddUser(user);
             }
+            
         }
 
         private async void GetLocation()
@@ -113,14 +116,24 @@ namespace FinalYearProject.Mobile.Activities
             GetLocation();
         }
 
+        internal void SetOfflineStores(List<OfflineStore> offlineStores)
+        {
+            _offlineStores = offlineStores;
+        }
+
+        public List<OfflineStore> GetOfflineStores()
+        {
+            return _offlineStores;
+        }
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
         }
         
-        public void SetOnlineStores(List<OnlineStore> onlineStoresString)
+        public void SetOnlineStores(List<OnlineStore> onlineStores)
         {
-            _onlineStores = onlineStoresString;
+            _onlineStores = onlineStores;
         }
 
         public List<OnlineStore> GetOnlineStores()
@@ -128,9 +141,9 @@ namespace FinalYearProject.Mobile.Activities
             return _onlineStores;
         }
 
-        public void SetLocalImpressionsGuid(List<Guid> localImpressionsGuid)
+        public void SetLocalImpressionsGuid(List<Guid> offlineImpressionsGuid)
         {
-            _localImpressionsGuid = localImpressionsGuid;
+            _offlineImpressionsGuid = offlineImpressionsGuid;
         }
 
         public void SetOnlineImpressionsGuid(List<Guid> onlineImpressionsGuid)
@@ -138,9 +151,9 @@ namespace FinalYearProject.Mobile.Activities
             _onlineImpressionsGuid = onlineImpressionsGuid;
         }
 
-        public Guid GetLocalImpressionGuid(int position)
+        public Guid GetOfflineImpressionGuid(int position)
         {
-            return _localImpressionsGuid[position];
+            return _offlineImpressionsGuid[position];
         }
 
         public Guid GetOnlineImpressionGuid(int position)

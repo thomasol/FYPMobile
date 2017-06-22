@@ -141,7 +141,7 @@ namespace FinalYearProject.Search.BaseClasses
 
         public IUpdateResponse<T> Update(T entity)
         {
-            var response = ElasticClient.Update<T>(entity, u => u.Index(Index).Type(Type));
+            var response = ElasticClient.Update<T>(entity, u => u.Doc(entity).Index(Index).Type(Type));
             return response;
         }
 

@@ -19,6 +19,7 @@ namespace FinalYearProject.Mobile.Services
     public interface IAPIService
     {
         Task<List<OnlineStore>> SearchByEAN(string ean);
+        Task<List<OfflineStore>> SearchByEANOffline(string ean);
         Task<bool> SaveEvent(JObject ev);
         Task<string> CheckUser(string id);
         Task UpdateUser(JObject ev);

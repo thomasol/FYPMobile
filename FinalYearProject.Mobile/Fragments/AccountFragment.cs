@@ -89,9 +89,20 @@ namespace FinalYearProject.Mobile.Fragments
                 dynamic user = new JObject();
                 user.Name = (string)_mAccountNameTextView.Text.ToString();
                 user.Email = (string)_mAccountEmailTextView.Text.ToString();
-                //user.Gender = (string)_mAccountGenderTextView.Text.ToString();
                 user.Age = Convert.ToInt32((_mAccountAge.Text.ToString()));
                 user.Id = _acct.Id;
+                if(_maleRadioButton.Selected == true)
+                {
+                    user.Gender = "male";
+                }
+                else if(_femaleRadioButton.Selected == true)
+                {
+                    user.Gender = "female";
+                }
+                else
+                {
+                    user.Gender = "other";
+                }
                 apiService.UpdateUser(user);
             };
 

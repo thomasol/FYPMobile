@@ -37,7 +37,47 @@
                     android:textColor="#333333"
                     android:singleLine="true"
                     android:text="Address"
-                    android:id="@+id/localStoreListRowTextViewAddress"
+                    android:id="@+id/localStoreListRowTextViewAddress1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+              <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Address"
+                    android:id="@+id/localStoreListRowTextViewAddress2"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+              <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Address"
+                    android:id="@+id/localStoreListRowTextViewAddress3"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+              <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Caption"
+                    android:id="@+id/localStoreListRowImageViewRetailerLogo"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="4dp" />
+              <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#333333"
+                    android:singleLine="true"
+                    android:text="Address"
+                    android:id="@+id/localStoreListRowTextViewStock"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="4dp" />
               <TextView

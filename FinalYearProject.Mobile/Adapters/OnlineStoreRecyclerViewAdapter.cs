@@ -100,7 +100,7 @@ namespace FinalYearProject.Mobile.Adapters
                             Action<OnlineStoreRecyclerViewAdapterClickEventArgs> longClickListener) : base(itemView)
         {
             Description = itemView.FindViewById<TextView>(Resource.Id.onlineStoreListRowTextViewDescription);
-            //BrandLogo = itemView.FindViewById<ImageView>(Resource.Id.onlineStoreListRowImageViewBrandLogo);
+            BrandLogo = itemView.FindViewById<ImageView>(Resource.Id.onlineStoreListRowImageViewBrandLogo);
             Name = itemView.FindViewById<TextView>(Resource.Id.onlineStoreListRowTextViewName);
             Url = itemView.FindViewById<TextView>(Resource.Id.onlineStoreListRowTextViewUrl);
             Price = itemView.FindViewById<TextView>(Resource.Id.onlineStoreListRowTextViewPrice);

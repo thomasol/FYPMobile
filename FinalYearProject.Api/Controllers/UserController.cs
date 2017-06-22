@@ -1,4 +1,5 @@
 ﻿using FinalYearProject.Domain;
+using FinalYearProject.Search;
 using FinalYearProject.Search.BaseClasses;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,11 @@ namespace FinalYearProject.Api.Controllers
         {
             var search = new SearchRepository<User>("user", _indexName);
             var result = search.GetById(id);
-
-            return result.Documents.FirstOrDefault().Id;
+            if(result.Documents.Count() > 0)
+            {
+                return result.Documents.FirstOrDefault().Id;
+            }
+            return "-1";
         }
 
         public void Post([FromBody]User user)
@@ -34,8 +38,7 @@ namespace FinalYearProject.Api.Controllers
         {
             // Arrange
             var search = new SearchRepository<User>("user", _indexName);
-            search.AddMappings(user);
-
+            //search.AddMappings(user);
             // Act
             search.Update(user);
         }

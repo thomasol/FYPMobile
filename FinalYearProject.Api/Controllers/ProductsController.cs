@@ -10,17 +10,21 @@ namespace FinalYearProject.Api.Controllers
     {
         private string _indexName = "prod-offers";
         // GET api/values/5
-        public List<OnlineStore> Put( FypSearchRequest req)
+        public dynamic Put(FypSearchRequest req)
         {
             req.Page = 0;
             req.Size = 10;
-            var onlinesearch = new Search.ProductSearchRepository("onlinestore", _indexName);
+            if (req.Mapping == "offlinestore")
+            {
+                var offlineSearch = new Search.OfflineSearchReository(req.Mapping, _indexName);
+                var offlineStores = offlineSearch.SearchLocationsByEanOffline(req);
+                return offlineStores.Documents.ToList();
+            }
+                var onlinesearch = new Search.ProductSearchRepository(req.Mapping, _indexName);
             var onlineStores = onlinesearch.SearchLocationsByEan(req);
-            //var offlineSearch = new Search.ProductSearchRepository("localstore", _indexName);
-            //var offlineStores = offlineSearch.SearchLocations(req);
             return onlineStores.Documents.ToList();
         }
-
+        
         // POST api/values
         public void Post([FromBody]Product item)
         {

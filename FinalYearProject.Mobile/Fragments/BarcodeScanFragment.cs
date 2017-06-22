@@ -85,9 +85,10 @@ namespace FinalYearProject.Mobile.Fragments
             ShowProgressDialog();
 
             var onlineStores = await apiService.SearchByEAN(text);
-
+            var offlineStores = await apiService.SearchByEANOffline(text);
             SetOnlineStores(onlineStores);
-            
+            SetOfflineStores(offlineStores);
+
             Fragment frag = ProductListingsFragment.NewInstance();
             HideProgressDialog();
             
@@ -97,20 +98,37 @@ namespace FinalYearProject.Mobile.Fragments
             .Commit();
         }
 
-        private void SetOnlineStores(List<OnlineStore> _onlineStores)
+        private void SetOfflineStores(List<OfflineStore> offlineStores)
         {
             try
             {
-                if (_onlineStores != null)
+                if (offlineStores != null)
                 {
                     var myActivity = (MainActivity)Activity;
-                    myActivity.SetOnlineStores(_onlineStores);
+                    myActivity.SetOfflineStores(offlineStores);
                 }
 
             }
             catch (Exception ex)
             {
-                Log.Debug("ProductString initialisation Fail", ex.ToString());
+                Log.Debug("Set OfflineStores Fail", ex.ToString());
+            }
+        }
+
+        private void SetOnlineStores(List<OnlineStore> onlineStores)
+        {
+            try
+            {
+                if (onlineStores != null)
+                {
+                    var myActivity = (MainActivity)Activity;
+                    myActivity.SetOnlineStores(onlineStores);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("Set OnlineStores Fail", ex.ToString());
             }
         }
 
