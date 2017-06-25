@@ -9,6 +9,7 @@ using FinalYearProject.Mobile.Activities;
 using FinalYearProject.Mobile.Services;
 using Newtonsoft.Json.Linq;
 using System;
+using FinalYearProject.Domain;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -22,12 +23,17 @@ namespace FinalYearProject.Mobile.Fragments
         private ImageView _mAccountPhotoImageButton;
         private GoogleSignInAccount _acct;
         private Bitmap _image;
+        User _user;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Activity.Title = "Account";
             _acct = ((MainApplication)Activity.Application).GSC;
+            var serv = new APIService();
+            var myActivity = (MainActivity)Activity;
+            _user = myActivity.GetUser();
+            var uu = _user;
         }
 
         public static AccountFragment NewInstance()
@@ -40,29 +46,32 @@ namespace FinalYearProject.Mobile.Fragments
         {
             View v = inflater.Inflate(Resource.Layout.accountFragment, container, false);
             _mAccountNameTextView = (TextView)v.FindViewById(Resource.Id.accountName);
-            _mAccountNameTextView.Text = _acct.DisplayName;
-            string personEmail = _acct.Email;
+            _mAccountNameTextView.Text = _user.Name;
+            string personEmail = _user.Email;
             _mAccountEmailTextView = (TextView)v.FindViewById(Resource.Id.accountEmail);
             _mAccountEmailTextView.Text = personEmail;
             _mAccountEmailTextView.Hint = "Email";
 
             _mAccountAge = (TextView)v.FindViewById(Resource.Id.accountAge);
-            
+            if(_user.Age != 0)
+            {
+                _mAccountAge.Text = _user.Age.ToString();
+            }
             _maleRadioButton = (RadioButton)v.FindViewById(Resource.Id.radioMale);
             _femaleRadioButton = (RadioButton)v.FindViewById(Resource.Id.radioFemale);
             _maleRadioButton.Click += MaleRadioButtonClick;
             _femaleRadioButton.Click += FemaleRadioButtonClick;
-            //if(_acct.gender != null)
-            //{
-            //    if(_acct.gender == "M")
-            //    {
-            //        maleRadioButton.Selected = true;
-            //    }
-            //    else
-            //    {
-            //        femaleRadioButton.Selected = true;
-            //    }
-            //}
+            if (_user.Gender != null)
+            {
+                if (_user.Gender == "male")
+                {
+                    _maleRadioButton.Checked = true;
+                }
+                else
+                {
+                    _femaleRadioButton.Checked = true;
+                }
+            }
             string personId = _acct.Id;
             if(_image == null)
             {
@@ -90,7 +99,7 @@ namespace FinalYearProject.Mobile.Fragments
                 user.Name = (string)_mAccountNameTextView.Text.ToString();
                 user.Email = (string)_mAccountEmailTextView.Text.ToString();
                 user.Age = Convert.ToInt32((_mAccountAge.Text.ToString()));
-                user.Id = _acct.Id;
+                user.Id = user.Id;
                 if(_maleRadioButton.Selected == true)
                 {
                     user.Gender = "male";

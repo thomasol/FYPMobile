@@ -7,12 +7,11 @@ using ZXing.Net.Mobile.Forms.Android;
 using Fragment = Android.Support.V4.App.Fragment;
 using FinalYearProject.Mobile.Services;
 using Android.App;
-using Android.Gms.Auth.Api.SignIn;
-using Newtonsoft.Json.Linq;
 using FinalYearProject.Domain;
 using FinalYearProject.Mobile.Activities;
 using Android.Util;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FinalYearProject.Mobile.Fragments
 {
@@ -20,14 +19,11 @@ namespace FinalYearProject.Mobile.Fragments
     {
         MobileBarcodeScanner _scanner;
         private ProgressDialog _mProgressDialog;
-        private GoogleSignInAccount _acct;
 
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Activity.Title = "Barcode Scan";
-
-            _acct = ((MainApplication)Activity.Application).GSC;
 
             await DoLookup("test");
             //try
@@ -86,10 +82,12 @@ namespace FinalYearProject.Mobile.Fragments
 
             var onlineStores = await apiService.SearchByEAN(text);
             var offlineStores = await apiService.SearchByEANOffline(text);
+            offlineStores = offlineStores.Where(s => s.Address1 != null).ToList();
+            onlineStores = onlineStores.Where(s => s.Url != null).ToList();
             SetOnlineStores(onlineStores);
             SetOfflineStores(offlineStores);
 
-            Fragment frag = ProductListingsFragment.NewInstance();
+            Fragment frag = ProductListingFragment.NewInstance();
             HideProgressDialog();
             
             Activity.SupportFragmentManager.BeginTransaction()
@@ -131,26 +129,7 @@ namespace FinalYearProject.Mobile.Fragments
                 Log.Debug("Set OnlineStores Fail", ex.ToString());
             }
         }
-
-        //private void SetProduct(string productString)
-        //{
-        //    try
-        //    {
-        //        if (productString != "Data not available")
-        //        {
-        //            JObject jsonResponse = JObject.Parse(productString);
-        //            Product _p = jsonResponse.ToObject<Product>();
-        //            var myActivity = (MainActivity)Activity;
-        //            myActivity.SetProduct(_p);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Log.Debug("ProductString initialisation Fail", ex.ToString());
-        //    }
-        //}
-
+        
         private void ShowProgressDialog()
         {
             if (_mProgressDialog == null)

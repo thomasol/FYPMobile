@@ -206,7 +206,7 @@
     <Compile Include="Fragments\BarcodeScanFragment.cs" />
     <Compile Include="Fragments\LocalStoresFragment.cs" />
     <Compile Include="Fragments\OnlineStoresFragment.cs" />
-    <Compile Include="Fragments\ProductListingsFragment.cs" />
+    <Compile Include="Fragments\ProductListingFragment.cs" />
     <Compile Include="Fragments\SearchFragment.cs" />
     <Compile Include="Fragments\SearchResultFragment.cs" />
     <Compile Include="ClickListeners\IExpandCollapseListener.cs" />
@@ -223,7 +223,6 @@
     <Compile Include="ViewHolders\ParentViewHolder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -2844,8 +2844,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0047
 			public const int action_mode_close_button = 2131361863;
 			
-			// aapt resource value: 0x7f0a00df
-			public const int action_share = 2131362015;
+			// aapt resource value: 0x7f0a00e4
+			public const int action_share = 2131362020;
 			
 			// aapt resource value: 0x7f0a0048
 			public const int activity_chooser_view_content = 2131361864;
@@ -2865,6 +2865,9 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0015
 			public const int auto = 2131361813;
 			
+			// aapt resource value: 0x7f0a00e0
+			public const int autoCompleteTextViewSearch = 2131362016;
+			
 			// aapt resource value: 0x7f0a0026
 			public const int beginning = 2131361830;
 			
@@ -2873,6 +2876,9 @@ namespace FinalYearProject.Mobile
 			
 			// aapt resource value: 0x7f0a004f
 			public const int buttonPanel = 2131361871;
+			
+			// aapt resource value: 0x7f0a00e1
+			public const int buttonSearch = 2131362017;
 			
 			// aapt resource value: 0x7f0a0083
 			public const int button_optional_action = 2131361923;
@@ -2904,8 +2910,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a002a
 			public const int collapseActionView = 2131361834;
 			
-			// aapt resource value: 0x7f0a00de
-			public const int contentFrame = 2131362014;
+			// aapt resource value: 0x7f0a00e3
+			public const int contentFrame = 2131362019;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int contentPanel = 2131361877;
@@ -3023,6 +3029,9 @@ namespace FinalYearProject.Mobile
 			
 			// aapt resource value: 0x7f0a0000
 			public const int item_touch_helper_previous_elevation = 2131361792;
+			
+			// aapt resource value: 0x7f0a00df
+			public const int labelProductSearch = 2131362015;
 			
 			// aapt resource value: 0x7f0a003a
 			public const int left = 2131361850;
@@ -3153,14 +3162,14 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a0021
 			public const int multiply = 2131361825;
 			
-			// aapt resource value: 0x7f0a00e1
-			public const int navAccount = 2131362017;
+			// aapt resource value: 0x7f0a00e6
+			public const int navAccount = 2131362022;
 			
-			// aapt resource value: 0x7f0a00e0
-			public const int navBarcodeSearch = 2131362016;
+			// aapt resource value: 0x7f0a00e5
+			public const int navBarcodeSearch = 2131362021;
 			
-			// aapt resource value: 0x7f0a00e2
-			public const int navSignOut = 2131362018;
+			// aapt resource value: 0x7f0a00e7
+			public const int navSignOut = 2131362023;
 			
 			// aapt resource value: 0x7f0a0097
 			public const int nav_view = 2131361943;
@@ -3234,8 +3243,14 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a00d5
 			public const int place_autocomplete_separator = 2131362005;
 			
+			// aapt resource value: 0x7f0a00de
+			public const int productBrandLogo = 2131362014;
+			
 			// aapt resource value: 0x7f0a00dc
-			public const int productRowDetails = 2131362012;
+			public const int productDescription = 2131362012;
+			
+			// aapt resource value: 0x7f0a00dd
+			public const int productEan = 2131362013;
 			
 			// aapt resource value: 0x7f0a0076
 			public const int profile_layout = 2131361910;
@@ -3264,8 +3279,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a00d1
 			public const int recyclerViewOnlineStores = 2131362001;
 			
-			// aapt resource value: 0x7f0a00dd
-			public const int recyclerViewStoreList = 2131362013;
+			// aapt resource value: 0x7f0a00e2
+			public const int recyclerViewStoreList = 2131362018;
 			
 			// aapt resource value: 0x7f0a003b
 			public const int right = 2131361851;
@@ -3384,8 +3399,8 @@ namespace FinalYearProject.Mobile
 			// aapt resource value: 0x7f0a00b7
 			public const int status_bar_latest_event_content = 2131361975;
 			
-			// aapt resource value: 0x7f0a00e3
-			public const int storeListTest = 2131362019;
+			// aapt resource value: 0x7f0a00e8
+			public const int storeListTest = 2131362024;
 			
 			// aapt resource value: 0x7f0a007d
 			public const int submit = 2131361917;

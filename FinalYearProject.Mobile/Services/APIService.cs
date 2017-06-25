@@ -33,7 +33,7 @@ namespace FinalYearProject.Mobile.Services
             var jsonString = JsonConvert.SerializeObject(ev);
 
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
-            string url = "api/Events/";
+            string url = "api/Event/";
             try
             {
                 var response = await httpClient.PostAsync(url, stringContent);
@@ -50,15 +50,18 @@ namespace FinalYearProject.Mobile.Services
             return false;
         }
 
+        #region search
+
         public async Task<List<OnlineStore>> SearchByEAN(string ean)
         {
             var list = new List<OnlineStore>();
             dynamic fypSearchRequest = new JObject();
             fypSearchRequest.Mapping = "onlinestore";
             fypSearchRequest.ProductId = "05099206056213";
+            fypSearchRequest.SearchType = "not text";
             var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
-            string url = "api/Products/";
+            string url = "api/Product/";
 
             try
             {
@@ -72,7 +75,7 @@ namespace FinalYearProject.Mobile.Services
             }
             catch (Exception ex)
             {
-                Log.Debug("SearchByEAN Error", ex.ToString());
+                Log.Debug("Search By EAN Error", ex.ToString());
             }
             return list;
         }
@@ -83,9 +86,11 @@ namespace FinalYearProject.Mobile.Services
             dynamic fypSearchRequest = new JObject();
             fypSearchRequest.ProductId = "05099206056213";
             fypSearchRequest.Mapping = "offlinestore";
+            fypSearchRequest.SearchType = "not text";
+
             var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
-            string url = "api/Products/";
+            string url = "api/Product/";
 
             try
             {
@@ -104,6 +109,68 @@ namespace FinalYearProject.Mobile.Services
             return list;
         }
 
+        public async Task<List<OnlineStore>> SearchBySearchTerm(string term)
+        {
+            var list = new List<OnlineStore>();
+            dynamic fypSearchRequest = new JObject();
+            fypSearchRequest.Mapping = "onlinestore";
+            fypSearchRequest.ProductId = "05099206056213";
+            fypSearchRequest.SearchTerm = term;
+            fypSearchRequest.SearchType = "text";
+            var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
+            var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
+            string url = "api/Product/";
+
+            try
+            {
+                var response = await httpClient.PutAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<OnlineStore>>(content);
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("Search By Search Term Error", ex.ToString());
+            }
+            return list;
+        }
+
+        public async Task<List<OfflineStore>> SearchBySearchTermOffline(string term)
+        {
+            var list = new List<OfflineStore>();
+            dynamic fypSearchRequest = new JObject();
+            fypSearchRequest.ProductId = "05099206056213";
+            fypSearchRequest.Mapping = "offlinestore";
+            fypSearchRequest.SearchTerm = term;
+            fypSearchRequest.SearchType = "text";
+            var jsonString = JsonConvert.SerializeObject(fypSearchRequest);
+            var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
+            string url = "api/Product/";
+
+            try
+            {
+                var response = await httpClient.PutAsync(url, stringContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    list = JsonConvert.DeserializeObject<List<OfflineStore>>(content);
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("Search By Search Term Offline Error", ex.ToString());
+            }
+            return list;
+        }
+
+        #endregion
+
+        #region user
+
         public async Task<bool> UserExists(string id)
         {
             string url = "api/User/" + id;
@@ -120,8 +187,9 @@ namespace FinalYearProject.Mobile.Services
             }
         }
 
-        public async Task<string> CheckUser(string id)
+        public async Task<User> CheckUser(string id)
         {
+            User user;
             string content = "";
             string url = "api/User/" + id;
 
@@ -131,23 +199,26 @@ namespace FinalYearProject.Mobile.Services
                 if (response.IsSuccessStatusCode)
                 {
                     content = await response.Content.ReadAsStringAsync();
+                    user = JsonConvert.DeserializeObject<User>(content);
                 }
                 else
                 {
-                    content = "-1";
+                    user = null;
                 }
             }
             catch (Exception ex)
             {
                 Log.Debug("Check User Error", ex.ToString());
+                user = null;
             }
-            return content;
+            return user;
         }
 
-        public async Task<string> AddUser(JObject user)
+        public async Task<User> AddUser(JObject acct)
         {
+            User user;
             string content = "";
-            var jsonString = JsonConvert.SerializeObject(user);
+            var jsonString = JsonConvert.SerializeObject(acct);
             var stringContent = new StringContent(jsonString, UnicodeEncoding.UTF8, "application/json");
             string url = "api/User/";
 
@@ -157,17 +228,19 @@ namespace FinalYearProject.Mobile.Services
                 if (response.IsSuccessStatusCode)
                 {
                     content = await response.Content.ReadAsStringAsync();
+                    user = JsonConvert.DeserializeObject<User>(content);
                 }
                 else
                 {
-                    content = "-1";
+                    user = null;
                 }
             }
             catch (Exception ex)
             {
                 Log.Debug("AddUser Error", ex.ToString());
+                user = null;
             }
-            return content;
+            return user;
         }
 
         public async Task UpdateUser(JObject user)
@@ -189,5 +262,32 @@ namespace FinalYearProject.Mobile.Services
                 Log.Debug("Update User Error", ex.ToString());
             }
         }
+
+        public async Task<User> GetUser(string id)
+        {
+            User user;
+            string url = "api/User/" + id;
+
+            try
+            {
+                var response = await httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    user = JsonConvert.DeserializeObject<User>(content);
+                }
+                else
+                {
+                    user = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Debug("Get User Error", ex.ToString());
+                user = null;
+            }
+            return user;
+        }
+        #endregion
     }
 }

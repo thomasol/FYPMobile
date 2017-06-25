@@ -17,5 +17,6 @@ namespace FinalYearProject.Domain
         public int Size { get; set; }
         public int Page { get; set; }
         public string Mapping { get; set; }
+        public string SearchType { get; set; }
     }
 }

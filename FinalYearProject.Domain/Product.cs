@@ -10,10 +10,8 @@ namespace FinalYearProject.Domain
         public string Mpn { get; set; }
         public string Ean { get; set; }
         public string Upc { get; set; }
-        public int BrandId { get; set; }
         public List<OnlineStore> OnlineStores { get; set; }
         public List<OfflineStore> LocalStores { get; set; }
-        public string Session { get; set; }
     }
     
 }

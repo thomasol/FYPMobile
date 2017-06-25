@@ -40,5 +40,31 @@ namespace FinalYearProject.Search
 
             return response;
         }
+
+        public ISearchResponse<OfflineStore> SearchLocationsBySearchTermOffline(FypSearchRequest search)
+        {
+            QueryContainer searchQuery = new QueryContainer();
+
+            if (search.SearchTerm != null)
+            {
+                searchQuery =
+                    Query<OfflineStore>.Bool(
+                        x =>
+                        x.Must(m => m.QueryString(qs => qs.
+                            DefaultField("_all").Query(search.SearchTerm))));
+            }
+
+            var response =
+                ElasticClient.Search<OfflineStore>(
+                    s =>
+                    s.Type(Type)
+                        .Query(
+                            q => searchQuery)
+                        .From(search.Page)
+                        .Size(search.Size)
+                        );
+
+            return response;
+        }
     }
 }

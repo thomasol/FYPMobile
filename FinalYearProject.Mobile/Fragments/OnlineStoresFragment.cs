@@ -45,6 +45,7 @@ namespace FinalYearProject.Mobile.Fragments
             // Plug the adapter into the RecyclerView:
             var myActivity = (MainActivity)Activity;
             _onlineStores = myActivity.GetOnlineStores();
+
             mAdapter = new OnlineStoreRecyclerViewAdapter(_onlineStores);
             mAdapter.ItemClick += OnItemClick;
 
@@ -55,12 +56,9 @@ namespace FinalYearProject.Mobile.Fragments
         private async void OnItemClick(object sender, OnlineStoreRecyclerViewAdapterClickEventArgs e)
         {
             int position = e.Position;
+            var onlineStore = _onlineStores[position];
 
-            //uncomment and change
-            //var onlineStore = _onlineStore.OnlineStores[position];
-            var onlineStore = _onlineStores;
-
-            string url = onlineStore[position].Url;
+            string url = onlineStore.Url;
             var uri = Android.Net.Uri.Parse(url);
             var intent = new Intent(Intent.ActionView, uri);
             StartActivity(intent);
@@ -73,7 +71,7 @@ namespace FinalYearProject.Mobile.Fragments
             Guid _impressionGuid = ((MainActivity)Activity).GetOnlineImpressionGuid(position);
             clickEvent.ImpressionGuid = _impressionGuid;
             clickEvent.CreatedAt = DateTime.Now;
-            clickEvent.EAN = _onlineStores[position].Ean;
+            clickEvent.EAN = onlineStore.Ean;
             clickEvent.Type = 2;
 
             await restService.SaveEvent(clickEvent);

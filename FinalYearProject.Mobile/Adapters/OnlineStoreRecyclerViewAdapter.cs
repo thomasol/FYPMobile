@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using FinalYearProject.Domain;
 using Android.Graphics;
 using System.Net;
+using System.Linq;
 
 namespace FinalYearProject.Mobile.Adapters
 {
@@ -37,18 +38,17 @@ namespace FinalYearProject.Mobile.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
             var item = _onlineStores[position];
-
-            // Replace the contents of the view with that element
-            var holder = viewHolder as OnlineStoreRecyclerViewAdapterViewHolder;
-            holder.Description.Text = item.Description.ToString();
-            //holder.Currency.Text = item[position].Currency.ToString();
-            holder.Stock.Text = item.Stock.ToString();
-            holder.Price.Text = item.Currency.ToString() + " " + item.Price.ToString();
-            holder.Name.Text = item.Name.ToString();
-            holder.Url.Text = item.Url.ToString();
-            var imageBitmap = GetImageBitmapFromUrl(item.BrandLogo.ToString());
-
-            holder.BrandLogo.SetImageBitmap(imageBitmap);
+            if(item.Url != null)
+            {
+                // Replace the contents of the view with that element
+                var holder = viewHolder as OnlineStoreRecyclerViewAdapterViewHolder;
+                holder.Description.Text = item.Description;
+                //holder.Currency.Text = item[position].Currency.ToString();
+                holder.Stock.Text = item.Stock;
+                holder.Price.Text = item.Currency + " " + item.Price;
+                holder.Name.Text = item.Name;
+                holder.Url.Text = item.Url ?? "";
+            }
         }
 
         public override int ItemCount => _onlineStores.Count;
@@ -59,8 +59,6 @@ namespace FinalYearProject.Mobile.Adapters
 
         private Bitmap GetImageBitmapFromUrl(string url)
         {
-            //string imageLocation = "https:" + imageUri.SchemeSpecificPart;
-
             Bitmap imageBitmap = null;
             using (var webClient = new WebClient())
             {

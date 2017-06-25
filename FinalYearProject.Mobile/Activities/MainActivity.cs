@@ -16,6 +16,7 @@ using Android.Views;
 using System.Collections.Generic;
 using FinalYearProject.Mobile.Services;
 using Newtonsoft.Json.Linq;
+using Android.Widget;
 
 namespace FinalYearProject.Mobile.Activities
 {
@@ -48,6 +49,8 @@ namespace FinalYearProject.Mobile.Activities
                 Manifest.Permission.AccessFineLocation,
                 Manifest.Permission.Camera
             };
+        
+        private User _user;
 
         protected override int LayoutResource
         {
@@ -62,15 +65,16 @@ namespace FinalYearProject.Mobile.Activities
             base.OnCreate(savedInstanceState);
             SetContentView(LayoutResource);
             base.OnCreateDrawer(savedInstanceState);
-
+            
+            IAPIService serv = new APIService();
+            
             _gsc = ((MainApplication)Application).GSC;
 
             GoogleSignInAccount _acct = ((MainApplication)this.Application).GSC;
 
             string id = _acct.Id;
-            IAPIService serv = new APIService();
-            var ans = await serv.CheckUser(id);
-            if (ans == "\"-1\"" || ans == "null" || ans == null)
+            User ans = await serv.CheckUser(id);
+            if (ans.Id == "\"-1\"" || ans.Id == "null" || ans.Id == null)
             {
                 dynamic user = new JObject();
                 user.email = _acct.Email;
@@ -78,9 +82,19 @@ namespace FinalYearProject.Mobile.Activities
                 user.name = _acct.DisplayName;
                 user.gender = "other";
                 user.age = 0;
-                await serv.AddUser(user);
+                ans = await serv.AddUser(user);
             }
-            
+            SetUser(ans);
+        }
+
+        private void SetUser(User ans)
+        {
+            _user = ans;
+        }
+
+        public User GetUser()
+        {
+            return _user;
         }
 
         private async void GetLocation()
@@ -98,24 +112,6 @@ namespace FinalYearProject.Mobile.Activities
             }
         }
 
-        public override void OnBackPressed()
-        {
-            if (SupportFragmentManager.BackStackEntryCount > 0)
-            {
-                SupportFragmentManager.PopBackStack();
-            }
-            else
-            {
-                base.OnBackPressed();
-            }
-        }
-
-        protected override void OnResume()
-        {
-            base.OnResume();
-            GetLocation();
-        }
-
         internal void SetOfflineStores(List<OfflineStore> offlineStores)
         {
             _offlineStores = offlineStores;
@@ -124,11 +120,6 @@ namespace FinalYearProject.Mobile.Activities
         public List<OfflineStore> GetOfflineStores()
         {
             return _offlineStores;
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
         }
         
         public void SetOnlineStores(List<OnlineStore> onlineStores)
@@ -141,7 +132,7 @@ namespace FinalYearProject.Mobile.Activities
             return _onlineStores;
         }
 
-        public void SetLocalImpressionsGuid(List<Guid> offlineImpressionsGuid)
+        public void SetOfflineImpressionsGuid(List<Guid> offlineImpressionsGuid)
         {
             _offlineImpressionsGuid = offlineImpressionsGuid;
         }
@@ -196,6 +187,29 @@ namespace FinalYearProject.Mobile.Activities
 
             viewPager.Adapter = _adapter;
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
         
+        public override void OnBackPressed()
+        {
+            if (SupportFragmentManager.BackStackEntryCount > 0)
+            {
+                SupportFragmentManager.PopBackStack();
+            }
+            else
+            {
+                base.OnBackPressed();
+            }
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+            GetLocation();
+        }
+
     }
 }

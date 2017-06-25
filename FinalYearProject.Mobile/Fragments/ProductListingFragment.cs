@@ -16,7 +16,7 @@ using FinalYearProject.Mobile.Helpers;
 
 namespace FinalYearProject.Mobile.Fragments
 {
-    public class ProductListingsFragment : Fragment
+    public class ProductListingFragment : Fragment
     {
         private TabLayout tabLayout;
         private ViewPager viewPager;
@@ -32,17 +32,22 @@ namespace FinalYearProject.Mobile.Fragments
         private LocalStoresFragment _offlineStoresFragment;
 
         List<OnlineStore> _onlineStores;
-        List<Guid> _localImpressionsGuid = new List<Guid>();
+        List<OfflineStore> _offlineStores;
+        List<Guid> _offlineImpressionsGuid = new List<Guid>();
         List<Guid> _onlineImpressionsGuid = new List<Guid>();
 
-        private const string TAG = "ProductListingsFragment";
+        private const string TAG = "ProductListingFragment";
         ViewPagerAdapter _adapter = null;
-
+        User _user;
         public override async void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            _onlineStores = ((MainActivity)Activity).GetOnlineStores();
-            //await CreateImpressionEvent();
+
+            var myActivity = (MainActivity)Activity;
+            _onlineStores = myActivity.GetOnlineStores();
+            _offlineStores = myActivity.GetOfflineStores();
+            _user = myActivity.GetUser();
+            await CreateImpressionEvent();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -59,10 +64,57 @@ namespace FinalYearProject.Mobile.Fragments
             return v;
         }
 
-        public static ProductListingsFragment NewInstance()
+        public static ProductListingFragment NewInstance()
         {
-            var frag1 = new ProductListingsFragment { Arguments = new Bundle() };
+            var frag1 = new ProductListingFragment { Arguments = new Bundle() };
             return frag1;
+        }
+        
+        private async Task CreateImpressionEvent()
+        {
+            try
+            {
+                IAPIService restService = new APIService();
+                dynamic impressionEvent = new JObject();
+                var pos = LocationHelper.Position;
+
+                var _searchGuid = Guid.NewGuid();
+                impressionEvent.SearchGuid = _searchGuid;
+                impressionEvent.CreatedAt = DateTime.Now;
+                impressionEvent.Lon = pos.Longitude;
+                impressionEvent.Lat = pos.Latitude;
+                impressionEvent.EAN = _onlineStores[0].Ean;
+                impressionEvent.Type = 1;
+                impressionEvent.UserId = _user.Id;
+                for (int i = 0; i < _offlineStores.Count; i++)
+                {
+                    var impressionGuid = Guid.NewGuid();
+                    impressionEvent.ImpressionGuid = impressionGuid;
+                    impressionEvent.Description = "Search Event Offline Store " + i;
+                    impressionEvent.StoreCode = _offlineStores[i].StoreCode;
+                    _offlineImpressionsGuid.Add(impressionGuid);
+                    await restService.SaveEvent(impressionEvent);
+                }
+
+                for (int i = 0; i < _onlineStores.Count; i++)
+                {
+                    var impressionGuid = Guid.NewGuid();
+                    impressionEvent.StoreCode = _onlineStores[i].StoreCode;
+                    impressionEvent.ImpressionGuid = impressionGuid;
+                    impressionEvent.Description = "Search Event Online Store " + i;
+                    impressionEvent.Url = _onlineStores[i].Url;
+                    _onlineImpressionsGuid.Add(impressionGuid);
+                    await restService.SaveEvent(impressionEvent);
+                }
+
+                ((MainActivity)Activity).SetOfflineImpressionsGuid(_offlineImpressionsGuid);
+                ((MainActivity)Activity).SetOnlineImpressionsGuid(_onlineImpressionsGuid);
+
+            }
+            catch (Exception ex)
+            {
+                Log.Debug(TAG, ex.ToString());
+            }
         }
 
         private void setupTabIcons()
@@ -89,57 +141,10 @@ namespace FinalYearProject.Mobile.Fragments
 
             viewPager.Adapter = _adapter;
         }
-
-        private async Task CreateImpressionEvent()
-        {
-            try
-            {
-                IAPIService restService = new APIService();
-                dynamic impressionEvent = new JObject();
-                var pos = LocationHelper.Position;
-
-                var _searchGuid = Guid.NewGuid();
-                impressionEvent.SearchGuid = _searchGuid;
-                impressionEvent.CreatedAt = DateTime.Now;
-                impressionEvent.Lon = pos.Longitude;
-                impressionEvent.Lat = pos.Latitude;
-                impressionEvent.EAN = _onlineStores[0].Ean;
-                impressionEvent.Type = 1;
-
-                //uncomment change to local
-                //for (int i = 0; i < _onlineStore.LocalStores.Count; i++)
-                //{
-                //    var impressionGuid = Guid.NewGuid();
-                //    impressionEvent.ImpressionGuid = impressionGuid;
-                //    impressionEvent.Description = "Search Event Local Store";
-                //    impressionEvent.StoreCode = _onlineStore.LocalStores[i].StoreCode;
-                //    _localImpressionsGuid.Add(impressionGuid);
-                //    await restService.SaveEvent(impressionEvent);
-                //}
-
-                for (int i = 0; i < _onlineStores.Count; i++)
-                {
-                    var impressionGuid = Guid.NewGuid();
-                    impressionEvent.ImpressionGuid = impressionGuid;
-                    impressionEvent.Description = "Search Event Online Store";
-                    impressionEvent.Url = _onlineStores[i].Url;
-                    _onlineImpressionsGuid.Add(impressionGuid);
-                    await restService.SaveEvent(impressionEvent);
-                }
-
-                ((MainActivity)Activity).SetLocalImpressionsGuid(_localImpressionsGuid);
-                ((MainActivity)Activity).SetOnlineImpressionsGuid(_onlineImpressionsGuid);
-
-            }
-            catch (Exception ex)
-            {
-                Log.Debug(TAG, ex.ToString());
-            }
-        }
-
+        
         public Guid GetLocalImpressionGuid(int position)
         {
-            return _localImpressionsGuid[position];
+            return _offlineImpressionsGuid[position];
         }
 
         public Guid GetOnlineImpressionGuid(int position)

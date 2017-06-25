@@ -66,18 +66,15 @@ namespace FinalYearProject.Search
 
         public ISearchResponse<OnlineStore> SearchLocationsBySearchTerm(FypSearchRequest search)
         {
-            QueryContainer searchTermQuery = new QueryContainer();
-            //QueryContainer storeQuery = new QueryContainer();
-            //QueryContainer geoQuery = new QueryContainer();
+            QueryContainer searchQuery = new QueryContainer();
 
             if (search.SearchTerm != null)
             {
-                searchTermQuery =
-                    Query<OnlineStore>.Bool(
+                searchQuery =
+                    Query<OfflineStore>.Bool(
                         x =>
-                        x.Must(m => m.MatchPhrase(
-                                descriptor => descriptor.Field("description").Field("retailer").Query(search.SearchTerm))
-                                ));
+                        x.Must(m => m.QueryString(qs => qs.
+                            DefaultField("_all").Query(search.SearchTerm))));
             }
 
 
@@ -86,7 +83,7 @@ namespace FinalYearProject.Search
                     s =>
                     s.Type(Type)
                         .Query(
-                            q => searchTermQuery)
+                            q => searchQuery)
                         .From(search.Page)
                         .Size(search.Size)
                         );

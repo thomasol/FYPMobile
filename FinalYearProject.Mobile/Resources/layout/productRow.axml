@@ -22,7 +22,28 @@
           android:singleLine="true"
           android:textAllCaps="true"
           android:text="Product Details"
-          android:id="@+id/productRowDetails"
+          android:id="@+id/productDescription"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" />
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:singleLine="true"
+          android:textAllCaps="true"
+          android:text="Product Details"
+          android:id="@+id/productEan"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginLeft="4dp" />
+    <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="?android:attr/textAppearanceSmall"
+          android:textColor="#333333"
+          android:singleLine="true"
+          android:text="Caption"
+          android:id="@+id/productBrandLogo"
           android:layout_gravity="center_horizontal"
           android:layout_marginLeft="4dp" />
     </LinearLayout>

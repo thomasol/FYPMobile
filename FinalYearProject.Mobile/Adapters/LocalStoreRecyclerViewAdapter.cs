@@ -5,6 +5,9 @@ using Android.Support.V7.Widget;
 using System.Collections.Generic;
 using FinalYearProject.Domain;
 using System.Linq;
+using Android.Graphics;
+using System.Net;
+
 namespace FinalYearProject.Mobile.Adapters
 {
     class LocalStoreRecyclerViewAdapter : RecyclerView.Adapter
@@ -16,7 +19,7 @@ namespace FinalYearProject.Mobile.Adapters
 
         public LocalStoreRecyclerViewAdapter(List<OfflineStore> stores)
         {
-            _stores = stores.Where(s => s.Address1 != null).ToList();
+            _stores = stores;
         }
 
         // Create new views (invoked by the layout manager)
@@ -36,17 +39,20 @@ namespace FinalYearProject.Mobile.Adapters
         public override void OnBindViewHolder(RecyclerView.ViewHolder viewHolder, int position)
         {
             var item = _stores[position];
-            var x = item.Retailer;
             if (item.Address1 != null)
             {
                 var holder = viewHolder as LocalStoreRecyclerViewAdapterViewHolder;
-                holder.Description.Text = item.Description.ToString();
+                holder.Description.Text = item.Description;
                 holder.Name.Text = item.Name.ToString();
-                holder.Price.Text = "€" + item.Price.ToString();
-                holder.Address1.Text = item.Address1.ToString() ?? "";
-                holder.Address2.Text = item.Address2.ToString() ?? "";
+                holder.Price.Text = "€" + item.Price;
+                holder.Address1.Text = item.Address1;
+                holder.Address2.Text = item.Address2;
                 holder.Address3.Text = item.Address3 ?? "";
-                holder.Stock.Text = item.Stock.ToString();
+                holder.Stock.Text = item.Stock;
+
+                //var imageBitmapRetailer = GetImageBitmapFromUrl(item.RetailerLogo.ToString());
+
+                //holder.RetailerLogo.SetImageBitmap(imageBitmapRetailer);
             }
         }
 
@@ -54,7 +60,22 @@ namespace FinalYearProject.Mobile.Adapters
 
         void OnClick(LocalStoreRecyclerViewAdapterClickEventArgs args) => ItemClick?.Invoke(this, args);
         void OnLongClick(LocalStoreRecyclerViewAdapterClickEventArgs args) => ItemLongClick?.Invoke(this, args);
-        
+
+        private Bitmap GetImageBitmapFromUrl(string url)
+        {
+            Bitmap imageBitmap = null;
+            using (var webClient = new WebClient())
+            {
+                webClient.UseDefaultCredentials = true;
+                var imageBytes = webClient.DownloadData(url);
+                if (imageBytes != null && imageBytes.Length > 0)
+                {
+                    imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                }
+            }
+            return imageBitmap;
+        }
+
     }
 
     public class LocalStoreRecyclerViewAdapterViewHolder : RecyclerView.ViewHolder
@@ -104,4 +125,5 @@ namespace FinalYearProject.Mobile.Adapters
         public View View { get; set; }
         public int Position { get; set; }
     }
+
 }

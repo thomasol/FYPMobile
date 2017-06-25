@@ -161,7 +161,7 @@ namespace FinalYearProject.Mobile.Activities
                     }
                     break;
                 case 4:
-                    fragment = BarcodeScanFragment.NewInstance();
+                    fragment = SearchFragment.NewInstance();
                     break;
             }
 

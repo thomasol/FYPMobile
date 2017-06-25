@@ -9,20 +9,18 @@ using System.Web.Http;
 
 namespace FinalYearProject.Api.Controllers
 {
-    public class EventsController : ApiController
+    public class EventController : ApiController
     {
         private string _indexName = "fyp";
 
-        //change this
         // GET: api/Events
-        public Nest.ISearchResponse<Event> Get()
+        public List<Event> Get()
         {
             var esRepo = new SearchRepository<Event>("event", _indexName);
-            var res = esRepo.GetAll(0, 100);
-            return res;
+            var res = esRepo.GetAll(0, 10000);
+            return res.Documents.ToList();
         }
         
-
         // POST: api/Events
         public void Post([FromBody]Event value)
         {

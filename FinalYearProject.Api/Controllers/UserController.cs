@@ -13,22 +13,34 @@ namespace FinalYearProject.Api.Controllers
     public class UserController : ApiController
     {
         private string _indexName = "fyp";
-        public string Get(string id)
+
+        public List<User> Get()
+        {
+            var search = new SearchRepository<User>("user", _indexName);
+            var result = search.GetAll(0, 100);
+            if (result.Documents.Count() > 0)
+            {
+                return result.Documents.ToList();
+            }
+            return null;
+        }
+
+        public User Get(string id)
         {
             var search = new SearchRepository<User>("user", _indexName);
             var result = search.GetById(id);
             if(result.Documents.Count() > 0)
             {
-                return result.Documents.FirstOrDefault().Id;
+                return result.Documents.FirstOrDefault();
             }
-            return "-1";
+            return null;
         }
 
         public void Post([FromBody]User user)
         {
             // Arrange
             var search = new SearchRepository<User>("user", _indexName);
-            //search.AddMappings(user);
+            search.AddMappings(user);
 
             // Act
             search.Add(user);

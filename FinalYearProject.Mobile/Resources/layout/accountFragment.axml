@@ -30,6 +30,11 @@
             android:background="#ebca0707"
             android:elevation="4dp"
             android:paddingBottom="24dp">
+          <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
             <TextView
                 android:id="@+id/accountName"
                 android:layout_width="wrap_content"

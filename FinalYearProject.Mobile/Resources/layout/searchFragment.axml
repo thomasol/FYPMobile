@@ -5,7 +5,12 @@
     android:layout_below="@id/drawer_layout"
     android:padding="16dp"
     android:layout_marginTop="20dp">
-    <!--<TextView
+  <LinearLayout
+    android:focusable="true" 
+    android:focusableInTouchMode="true"
+    android:layout_width="0px" 
+    android:layout_height="0px"/>
+<TextView
         android:id="@+id/labelProductSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -14,6 +19,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/autoCompleteTextViewSearch"
+        android:nextFocusUp="@id/autoCompleteTextViewSearch" 
+        android:nextFocusLeft="@id/autoCompleteTextViewSearch"
         android:layout_below="@id/labelProductSearch" />
     <Button
         android:text="Search"
@@ -25,5 +32,5 @@
         android:layout_marginLeft="10dip"
         android:clickable="true"
         android:focusable="false"
-        android:focusableInTouchMode="false" />-->
+        android:focusableInTouchMode="false" />
 </RelativeLayout>
